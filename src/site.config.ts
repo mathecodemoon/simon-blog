@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Used as the default description meta property and webmanifest description
-	description: "Writing and personal projects from Another Dev, exploring computer science, physics, and mathematics.",
+	description: "Writing and personal projects from Mathecodemoon, exploring computer science, physics, and mathematics.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-US",
 	linkedin: "https://www.linkedin.com/in/sim%C3%B3n-arboleda-ramirez-02568a427?utm_source=share_via&utm_content=profile&utm_medium=member_android",

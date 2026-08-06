@@ -1,30 +1,24 @@
 ---
-import ProjectCard from "./ProjectCard.astro";
-import type { Project } from "../../data/projects";
-
 interface Props {
-	projects: Project[];
+	count: number;
+	label?: string;
 }
 
-const { projects } = Astro.props;
+const { count, label = "Featured projects carousel" } = Astro.props;
 ---
 
-<featured-projects-carousel class="block" data-count={projects.length}>
+<featured-projects-carousel class="block" data-count={count}>
 	<div
 		class="featured-projects-track -mx-1 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-2"
-		aria-label="Featured projects carousel"
+		aria-label={label}
 		tabindex="0"
 	>
-		{projects.map((project) => (
-			<div class="featured-projects-slide flex w-[88%] shrink-0 snap-start sm:w-[calc(50%-0.625rem)]">
-				<ProjectCard project={project} compact />
-			</div>
-		))}
+		<slot />
 	</div>
 
 	<div class="mt-5 flex items-center justify-between gap-4">
 		<div class="featured-projects-dots flex gap-2" aria-hidden="true">
-			{projects.map((_, index) => (
+			{Array.from({ length: count }).map((_, index) => (
 				<span class:list={["h-1.5 rounded-full bg-textColor/25 transition-all", index === 0 ? "w-6 bg-accent" : "w-1.5"]}></span>
 			))}
 		</div>

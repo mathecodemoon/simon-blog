@@ -7,7 +7,8 @@ import { getAllPosts } from "../data/post";
 import PageLayout from "../layouts/PageLayout.astro";
 import { collectionDateSort } from "../utils/date";
 import FeaturedProjectsCarousel from "../components/projects/FeaturedProjectsCarousel.astro";
-import { projects } from "../data/projects";
+import OpenSourceContributionCard from "../components/projects/OpenSourceContributionCard.astro";
+import { openSourceContributions } from "../data/projects";
 
 // Posts
 const MAX_POSTS = 4;
@@ -30,12 +31,12 @@ const allPostsByDate = allPosts
       >"<br />
     </h1>
     <p class="mb-6 max-w-xl text-base leading-7 text-textColor/80">
-      Research notes on programming languages, categories and logic.
+      Research notes on programming languages, categories, abstract/linear algebra and logic.
     </p>
     <SocialList />
   </section>
 
-  <section aria-label="Featured projects" class="mt-20">
+  <section aria-label="Featured open source contributions" class="mt-20">
     <div
       class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3"
     >
@@ -45,13 +46,22 @@ const allPostsByDate = allPosts
         >
           Selected work
         </p>
-        <h2 class="title text-xl !text-accent">Projects</h2>
+        <h2 class="title text-xl !text-accent">Open Source Contributions</h2>
       </div>
       <a class="cactus-link font-mono text-xs" href="/projects/">View all →</a>
     </div>
     <FeaturedProjectsCarousel
-      projects={projects.filter((project) => project.featured)}
-    />
+      count={openSourceContributions.length}
+      label="Featured open source contributions carousel"
+    >
+      {
+        openSourceContributions.map((contribution) => (
+          <div class="featured-projects-slide flex w-[88%] shrink-0 snap-start sm:w-[calc(50%-0.625rem)]">
+            <OpenSourceContributionCard contribution={contribution} compact />
+          </div>
+        ))
+      }
+    </FeaturedProjectsCarousel>
   </section>
 
   <section aria-label="Latest blog posts" class="mt-20">

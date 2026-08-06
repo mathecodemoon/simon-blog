@@ -14,11 +14,11 @@ export const GET: APIRoute = ({ site }) => {
 		.map((contribution) => `- [${contribution.name}](${absoluteURL(`/projects/#contribution-${contribution.id}`)}): ${contribution.description}`)
 		.join("\n");
 
-	const content = `# Another Dev
+	const content = `# Mathecodemoon 
 
 > ${siteConfig.role} and physics student working across programming languages, computational physics, cryptography, Ethereum infrastructure, privacy, and quantum computing.
 
-This site is the professional portfolio and technical blog of Another Dev. Use the JSON portfolio for the complete canonical inventory, including technologies, featured flags, repositories, references, pull requests, and contribution statuses.
+This site is the professional portfolio and technical blog of Mathecodemoon Dev. Use the JSON portfolio for the complete canonical inventory, including technologies, featured flags, repositories, references, pull requests, and contribution statuses.
 
 ## Canonical resources
 
