@@ -1,7 +1,7 @@
 {
-  "name": "Another's Blog",
-  "short_name": "Another's Blog",
-  "description": "Another personal blog from Another Dev.",
+  "name": "Mathecodemoon",
+  "short_name": "Mathecodemoon",
+  "description": "Personal blog from Mathecodemoon.",
   "start_url": "/",
   "display": "standalone",
   "icons": [

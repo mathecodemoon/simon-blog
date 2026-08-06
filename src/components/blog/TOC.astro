@@ -39,59 +39,16 @@ const toc = generateToc([title, ...headings]);
       });
     });
 
-    const headings = Array.from(
-      document.querySelectorAll(
-        'article h1, article h2, article h3, article h4'
-      )
-    );
-
-    // Calcular las posiciones relativas de los headings
-    const headingOffsets = headings.map((heading) => ({
-      id: heading.getAttribute('id'),
-      offsetTop: heading.offsetTop,
-    }));
-
-    const totalHeight =
-      headingOffsets[headingOffsets.length - 1].offsetTop -
-      headingOffsets[0].offsetTop;
-
     const scrollBar = document.querySelector('.scroll-progress-bar');
 
     // Evento de scroll
     window.addEventListener('scroll', () => {
-      const scrollBottom = window.scrollY + window.innerHeight;
-
-      // Encontrar en qué sección estamos
-	  let currentSectionIndex = headingOffsets.findIndex(
-        (heading, index) =>
-          scrollBottom >= heading.offsetTop &&
-          (index === headingOffsets.length - 1 ||
-            scrollBottom < headingOffsets[index + 1].offsetTop)
-      );
-
-      // Si no se encuentra ninguna sección, usar la primera
-      if (currentSectionIndex === -1) {
-        currentSectionIndex = 0;
-      }
-
-      // Calcular el progreso relativo dentro de la sección actual
-      const currentHeading = headingOffsets[currentSectionIndex];
-      const nextHeading =
-        headingOffsets[currentSectionIndex + 1] || currentHeading;
-
-      const sectionHeight =
-        nextHeading.offsetTop - currentHeading.offsetTop || totalHeight;
-
-
-      const sectionScroll =
-        scrollBottom - currentHeading.offsetTop || 0;
-
-      const sectionProgress = Math.min(sectionScroll / sectionHeight, 1);
-
-      // Calcular el progreso total
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress =
-        currentSectionIndex / (headingOffsets.length - 1) +
-        sectionProgress / (headingOffsets.length - 1);
+        docHeight > 0
+          ? Math.min(Math.max(window.scrollY / docHeight, 0), 1)
+          : 0;
 
       // Actualizar el tamaño de la barra de progreso
       scrollBar.style.height = progress * 100 + '%';

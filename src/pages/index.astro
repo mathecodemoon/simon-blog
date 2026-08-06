@@ -13,50 +13,69 @@ import { projects } from "../data/projects";
 const MAX_POSTS = 4;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
-
+  .sort(collectionDateSort)
+  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<section class="max-w-2xl">
-		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Lab note #001</p>
-		<h1 class="mb-6 text-3xl font-semibold leading-tight text-textColor sm:text-4xl">
-			The universe <span class="text-accent">doesn’t owe us simplicity.</span>
-		</h1>
-		<p class="mb-6 max-w-xl text-base leading-7 text-textColor/80">
-			Research notes on programming languages, distributed systems, computational physics, cryptography, and quantum computing.
-		</p>
-		<SocialList />
-	</section>
+  <section class="max-w-2xl">
+    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
+      Henri Poincaré
+    </p>
+    <h1
+      class="mb-6 text-3xl font-semibold leading-tight text-textColor sm:text-3xl"
+    >
+      "la mathématique est <span class="text-accent"
+        >l’art de donner le même nom à des choses différentes</span
+      >"<br />
+    </h1>
+    <p class="mb-6 max-w-xl text-base leading-7 text-textColor/80">
+      Research notes on programming languages, categories and logic.
+    </p>
+    <SocialList />
+  </section>
 
-	<section aria-label="Featured projects" class="mt-20">
-		<div class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3">
-			<div>
-				<p class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60">Selected work</p>
-				<h2 class="title text-xl !text-accent">Projects</h2>
-			</div>
-			<a class="cactus-link font-mono text-xs" href="/projects/">View all →</a>
-		</div>
-		<FeaturedProjectsCarousel projects={projects.filter((project) => project.featured)} />
-	</section>
+  <section aria-label="Featured projects" class="mt-20">
+    <div
+      class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3"
+    >
+      <div>
+        <p
+          class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60"
+        >
+          Selected work
+        </p>
+        <h2 class="title text-xl !text-accent">Projects</h2>
+      </div>
+      <a class="cactus-link font-mono text-xs" href="/projects/">View all →</a>
+    </div>
+    <FeaturedProjectsCarousel
+      projects={projects.filter((project) => project.featured)}
+    />
+  </section>
 
-	<section aria-label="Latest blog posts" class="mt-20">
-		<div class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3">
-			<div>
-				<p class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60">Latest writing</p>
-				<h2 class="title text-xl !text-accent">Blog</h2>
-			</div>
-			<a class="cactus-link font-mono text-xs" href="/posts/">View all →</a>
-		</div>
-		<ul class="space-y-4" role="list">
-			{
-				allPostsByDate.map((p) => (
-					<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-						<PostPreview post={p} />
-					</li>
-				))
-			}
-		</ul>
-	</section>
+  <section aria-label="Latest blog posts" class="mt-20">
+    <div
+      class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3"
+    >
+      <div>
+        <p
+          class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60"
+        >
+          Latest writing
+        </p>
+        <h2 class="title text-xl !text-accent">Blog</h2>
+      </div>
+      <a class="cactus-link font-mono text-xs" href="/posts/">View all →</a>
+    </div>
+    <ul class="space-y-4" role="list">
+      {
+        allPostsByDate.map((p) => (
+          <li class="grid gap-2 sm:grid-cols-[auto_1fr]">
+            <PostPreview post={p} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </PageLayout>

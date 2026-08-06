@@ -30,16 +30,16 @@
     --theme-bg: 0 0% 0%;
     --theme-link: 330 49% 67%;
     --theme-text: 220 3% 79%;
-    --theme-accent: 111 100% 54%;
+    --theme-accent: 46 100% 50%;
     --theme-accent-2: 0 0% 93%;
-    --theme-quote: 102 100% 86%;
+    --theme-quote: 46 100% 80%;
     --theme-surface: 220deg 8% 6%;
     --theme-border: 220deg 3% 25%;
-    --h2-color: #81c784;
-    --h3-color: #a5d6a7;
-    --h4-color: #c8e6c9;
-    --h5-color: #e8f5e9;
-    --h6-color: #f1f8e9;
+    --h2-color: #ffc400;
+    --h3-color: #ffd340;
+    --h4-color: #ffe280;
+    --h5-color: #fff0bf;
+    --h6-color: #fff9e6;
     --md-img-filter: invert(1) hue-rotate(100deg);
   }
 }
