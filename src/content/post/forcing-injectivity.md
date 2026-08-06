@@ -13,10 +13,18 @@ Many times you have a function that is not injective and you want to make it inj
 
 ### 1. Quotient vectorial spaces
 When you have a <a href="https://es.wikipedia.org/wiki/Espacio_vectorial" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">vectorial space</a> V and a subspace U, the quotient space $V/U$ is:
-$$V/U = \{v \oplus U: v \in V\}$$
+
+$$
+V/U = \{v \oplus U: v \in V\}
+$$
+
 ### 2. Quotient groups
 When you have a <a href="https://ncatlab.org/nlab/show/group" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">group</a> G and a <a href="https://ncatlab.org/nlab/show/normal+subgroup" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">normal subgroup</a> H, the quotient $G/U$ group is:
-$$ G/U =\{ g \cdot H : g \in G \}$$
+
+$$
+G/U =\{ g \cdot H : g \in G \}
+$$
+
 ### 3. Linear Transformation kernel
 $$
 \begin{gathered}
@@ -106,20 +114,21 @@ $$
 $$
 A cone with nadir N over this functor has the following property:
 $$
-Z \xrightarrow{z} A \mathrel{\substack{\xrightarrow{f} \\ \xrightarrow[g]{}}} B
-\qquad \text{with } f \circ z = g \circ z
+N \xrightarrow{n} A \mathrel{\substack{\xrightarrow{f} \\ \xrightarrow[g]{}}} B
+\qquad \text{with } f \circ n = g \circ n
 $$
-And a universal cone E over this functor has the following property:
+And a universal cone with nadir E over this functor has the following property:
 
 $$
 \begin{array}{ccc}
-Z & & \\
-{\scriptstyle \exists!\,k}\Big\downarrow & {\scriptstyle \searrow\; z} & \\
+N & & \\
+{\scriptstyle \exists!\,k}\Big\downarrow & {\scriptstyle \searrow\; n} & \\
 E & \xrightarrow[\quad e\quad]{} & A \underset{g}{\overset{f}{\rightrightarrows}} B
 \end{array}
 $$
 
-This is: $\forall Z \in C$  equipped with a morphism  $z: Z \to A$ such that  $f\circ z = g \circ z$, there is a **unique** morphism $k: Z \to E$ such that: $k \circ e = z$
+This is: $\forall Z \in C$  equipped with a morphism  $n: N \to A$ such that <br>
+$f\circ n = g \circ n$, there is a **unique** morphism $k: Z \to E$ such that: $k \circ e = z$
 
 
 Now let's think about this equalizer:
@@ -135,13 +144,21 @@ $$
 First, let's prove that indeed Ker(T) is an equalizer.
 
 The unique function $k$ is $z$ restricted to $\operatorname{Ker}(T)$; this is:
-$$k=z': Z \to \operatorname{Ker}(T), \quad x \mapsto z(x)$$
-Suppose that there exists $$\alpha: Z \to \operatorname{Ker}(T) \text{ such that }i \circ \alpha = z, \text{then } i\circ \alpha = i\circ z'$$
+
+$$
+k=z': Z \to \operatorname{Ker}(T), \quad x \mapsto z(x)
+$$
+
+Suppose that there exists
+
+$$
+\alpha: Z \to \operatorname{Ker}(T) \text{ such that }i \circ \alpha = z, \text{then } i\circ \alpha = i\circ z'
+$$
+
 $i$ is indeed a <a href="https://en.wikipedia.org/wiki/Monomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">monomorphism</a>, then it is left-cancellable; therefore $\alpha = z$. $\blacksquare$
 
 
-We have seen that T induces an injective linear transformation $T': V/\operatorname{Ker}(T)) \to W$ because in $V/\operatorname{Ker}(T)$ all elements of $\operatorname{Ker}(T)$ are the same.
-
+We have seen that T induces an injective linear transformation <br> $T': V/\operatorname{Ker}(T)) \to W$ because in $V/\operatorname{Ker}(T)$ all elements of $\operatorname{Ker}(T)$ are the same then $\operatorname{Ker}(T') = \{0\} $.
 
 Now let us see the same but with groups. The equalizer is:
 
@@ -204,10 +221,10 @@ $$
 $\blacksquare$
 
 
-The first isomorphism theorem of group theory guarantees that the induced morphism $\varphi': G/\operatorname{Ker}(\varphi) \to H$ by $\varphi$ is indeed a monomorphism (an injective group <a href="https://en.wikipedia.org/wiki/Homomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">homomorphism</a>). This result is also because in $G/\operatorname{Ker}(\varphi)$, all elements of $\operatorname{Ker}(\varphi)$ are the same.
+The <a href="https://en.wikipedia.org/wiki/Isomorphism_theorems" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">first isomorphism theorem of group theory</a> guarantees that the induced morphism $\varphi': G/\operatorname{Ker}(\varphi) \to H$ by $\varphi$ is indeed a monomorphism (an injective group <a href="https://en.wikipedia.org/wiki/Homomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">homomorphism</a>). This result is also because in $G/\operatorname{Ker}(\varphi)$, all elements of $\operatorname{Ker}(\varphi)$ are the same.
 
 
-Let's think about the pattern: we have two algebraic structures such that the notion of injectivity for structure-preserving morphisms between objects is equivalent to the condition that the only element of the domain object mapping to the identity element of the codomain object is the identity element of the domain—which, in the case of vector spaces, is the additive identity $V_0$, which is the operation used to construct the quotient. So, when we have structures in a category with equalizers, a notion of injectivity of morphisms characterized by a unique preimage of some element of the codomain of the morphism, quotient objects and the equalizer are suitable for quotients. We can always force injectivity by taking the morphism induced by the original morphism from the quotient of the domain (or from the equalizer of the original morphism and the constant morphism that sends all elements of the domain to the element that characterizes injectivity in the structure) to the codomain of the original morphism.
+Let's think about the pattern: we have two algebraic structures such that the notion of injectivity for structure-preserving morphisms between objects is equivalent to the condition that the only element of the domain object mapping to the identity element of the codomain object is the identity element of the domain—which, in the case of vector spaces, is the additive identity $V_0$, which is the operation used to construct the quotient. So, when we have structures in a category with equalizers, a notion of injectivity of morphisms characterized by a unique preimage of some element of the codomain of the morphism, quotient objects and the equalizer are suitable for quotients. We can always force injectivity by taking the morphism induced by the original morphism from the quotient of the domain and the equalizer of the original morphism and the constant morphism that sends all elements of the domain to the element that characterizes injectivity in the structure to the codomain of the original morphism.
 
 
 Also, if we restrict the codomain of the obtained morphism to the image of the original morphism, this new morphism will be a bijection, which is many times a highly desirable property that a morphism can have.
