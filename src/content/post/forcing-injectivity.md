@@ -119,13 +119,21 @@ N \xrightarrow{n} A \mathrel{\substack{\xrightarrow{f} \\ \xrightarrow[g]{}}} B
 $$
 And a universal cone with nadir E over this functor has the following property:
 
-$$
-\begin{array}{ccc}
-N & & \\
-{\scriptstyle \exists!\,k}\Big\downarrow & {\scriptstyle \searrow\; n} & \\
-E & \xrightarrow[\quad e\quad]{} & A \underset{g}{\overset{f}{\rightrightarrows}} B
-\end{array}
-$$
+```tikz
+\usepackage{tikz-cd}
+
+
+\begin{document}
+
+
+\begin{tikzcd}[column sep=large,row sep=large]
+    Z \arrow[d, "{\exists!\,k}"', dashed] \arrow[dr, "z"] & \\
+    E \arrow[r, "e"'] & A \arrow[r, shift left, "f"] \arrow[r, shift right, swap, "g"] & B
+\end{tikzcd}
+
+
+\end{document}
+```
 
 This is: $\forall Z \in C$  equipped with a morphism  $n: N \to A$ such that <br>
 $f\circ n = g \circ n$, there is a **unique** morphism $k: Z \to E$ such that: $k \circ e = z$
@@ -133,13 +141,21 @@ $f\circ n = g \circ n$, there is a **unique** morphism $k: Z \to E$ such that: $
 
 Now let's think about this equalizer:
 
-$$
-\begin{array}{ccc}
-Z & & \\
-{\scriptstyle \exists!\,k}\Big\downarrow & {\scriptstyle \searrow\; z} & \\
-\operatorname{Ker}(T) & \xrightarrow[\quad i\quad]{} & V \underset{0}{\overset{T}{\rightrightarrows}} W
-\end{array}
-$$
+```tikz
+\usepackage{tikz-cd}
+
+
+\begin{document}
+
+
+\begin{tikzcd}[column sep=large,row sep=large]
+    Z \arrow[d, "{\exists!\,k}"', dashed] \arrow[dr, "z"] & \\
+    \operatorname{Ker}(T) \arrow[r, "\iota"', hook] & V \arrow[r, shift left, "T"] \arrow[r, shift right, swap, "0"] & W
+\end{tikzcd}
+
+
+\end{document}
+```
 
 First, let's prove that indeed Ker(T) is an equalizer.
 
@@ -162,13 +178,21 @@ We have seen that T induces an injective linear transformation <br> $T': V/\oper
 
 Now let us see the same but with groups. The equalizer is:
 
-$$
-\begin{array}{ccc}
-Z & & \\
-{\scriptstyle \exists!\,k}\Big\downarrow & {\scriptstyle \searrow\; z} & \\
-\operatorname{Ker}(\varphi) & \xrightarrow[\quad i\quad]{} & G \underset{e}{\overset{\varphi}{\rightrightarrows}} H
-\end{array}
-$$
+```tikz
+\usepackage{tikz-cd}
+
+
+\begin{document}
+
+
+\begin{tikzcd}[column sep=large,row sep=large]
+    Z \arrow[d, "{\exists!\,k}"', dashed] \arrow[dr, "z"] & \\
+    \operatorname{Ker}(\varphi) \arrow[r, "\iota"', hook] & G \arrow[r, shift left, "\varphi"] \arrow[r, shift right, swap, "\epsilon"] & H
+\end{tikzcd}
+
+
+\end{document}
+```
 
 The proof that $\operatorname{Ker}(\varphi)$ is indeed an equalizer is analogous to the case of vectorial spaces; we need that the quotient $G/\operatorname{Ker}(\varphi)$ be a group. A sufficient condition for this is:  $\operatorname{Ker}(\varphi)$ should be a normal subgroup of $G$.
 Let's prove this.
@@ -224,7 +248,18 @@ $\blacksquare$
 The <a href="https://en.wikipedia.org/wiki/Isomorphism_theorems" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">first isomorphism theorem of group theory</a> guarantees that the induced morphism $\varphi': G/\operatorname{Ker}(\varphi) \to H$ by $\varphi$ is indeed a monomorphism (an injective group <a href="https://en.wikipedia.org/wiki/Homomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">homomorphism</a>). This result is also because in $G/\operatorname{Ker}(\varphi)$, all elements of $\operatorname{Ker}(\varphi)$ are the same.
 
 
+### 6. Conclusion
+
 Let's think about the pattern: we have two algebraic structures such that the notion of injectivity for structure-preserving morphisms between objects is equivalent to the condition that the only element of the domain object mapping to the identity element of the codomain object is the identity element of the domain—which, in the case of vector spaces, is the additive identity $V_0$, which is the operation used to construct the quotient. So, when we have structures in a category with equalizers, a notion of injectivity of morphisms characterized by a unique preimage of some element of the codomain of the morphism, quotient objects and the equalizer are suitable for quotients. We can always force injectivity by taking the morphism induced by the original morphism from the quotient of the domain and the equalizer of the original morphism and the constant morphism that sends all elements of the domain to the element that characterizes injectivity in the structure to the codomain of the original morphism.
 
 
 Also, if we restrict the codomain of the obtained morphism to the image of the original morphism, this new morphism will be a bijection, which is many times a highly desirable property that a morphism can have.
+
+We have seen this phenomenon in vector spaces and groups and it seems like there are a lot of conditions involved, but it is much more common than one might think. but it is far more general. The same construction appears in modules, rings, Lie algebras, Boolean algebras, and, more generally, in every variety of universal algebras. In each case, one quotients the domain by the kernel (or, more fundamentally, by the kernel congruence) to obtain the largest quotient through which the original morphism factors as a monomorphism.
+
+
+### 7. References
+
+- **Emily Riehl.** <a href="https://math.jhu.edu/~eriehl/context/" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">*Category Theory in Context*</a>. Aurora: Dover Modern Math Originals. Mineola, NY: Dover Publications, 2016.
+- **Sheldon Axler.** <a href="https://linear.axler.net/" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">*Linear Algebra Done Right*</a>. 4th ed. Undergraduate Texts in Mathematics. Cham: Springer, 2024.
+- **Paolo Aluffi.** <a href="https://bookstore.ams.org/gsm-104" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">*Algebra: Chapter 0*</a>. Graduate Studies in Mathematics, vol. 104. Providence, RI: American Mathematical Society, 2009.

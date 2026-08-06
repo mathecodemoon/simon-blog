@@ -23,6 +23,7 @@
     "astro-expressive-code": "^0.38.3",
     "astro-icon": "^1.1.4",
     "astro-robots-txt": "^1.0.0",
+    "isomorphic-tikzjax": "^0.1.1",
     "katex": "^0.16.15",
     "mdast-util-directive": "^3.0.0",
     "react": "^19.0.0",

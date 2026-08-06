@@ -8,6 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkDirective from 'remark-directive';/* Handle ::: directives as nodes */
 import { remarkAdmonitions } from './src/plugins/remark-admonitions';/* Add admonitions */
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
+import { remarkTikZ } from './src/plugins/remark-tikz';/* Render ```tikz code blocks to SVG at build time */
 import robotsTxt from 'astro-robots-txt';
 
 import expressiveCode from 'astro-expressive-code';
@@ -46,6 +47,7 @@ export default defineConfig({
       remarkReadingTime,
       remarkDirective,
       remarkAdmonitions,
+      remarkTikZ,
     ],
     rehypePlugins: [rehypeKatex, rehypeSlug, rehypeAutolinkHeadings],
   },

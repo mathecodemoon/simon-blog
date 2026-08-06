@@ -64,6 +64,43 @@
   background-color: hsl(var(--theme-accent));
 }
 
+/* Diagramas TikZ renderizados con TikZJax */
+.tikz-diagram {
+  display: block;
+  margin: 1.5rem auto;
+  overflow-x: auto;
+}
+
+.tikz-diagram svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  /* TikZJax hardcodes black strokes/fills, which disappear on the dark
+     theme. Re-color everything through currentColor so the diagram follows
+     the active theme's text color. */
+  color: hsl(var(--theme-text));
+}
+
+.tikz-diagram svg * {
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.tikz-diagram svg [stroke="none"] {
+  stroke: none;
+}
+
+.tikz-diagram svg [fill="none"] {
+  fill: none;
+}
+
+.tikz-diagram-error {
+  @apply rounded-sm border border-themeBorder bg-surface p-4 font-mono text-xs text-red-400;
+  overflow-x: auto;
+  white-space: pre;
+}
+
 @layer components {
   .project-card {
     @apply relative h-full w-full overflow-hidden rounded-sm border border-themeBorder bg-surface p-6 shadow-sm transition-all duration-200;
