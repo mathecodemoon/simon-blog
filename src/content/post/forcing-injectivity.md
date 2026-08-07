@@ -139,7 +139,13 @@ This is: $\forall Z \in C$  equipped with a morphism  $n: N \to A$ such that <br
 $f\circ n = g \circ n$, there is a **unique** morphism $k: Z \to E$ such that: $k \circ e = z$
 
 
-Now let's think about this equalizer:
+### 6. Examples of equalizers
+
+Let's look at two concrete examples. Both kernels we studied before are equalizers: the kernel of a linear transformation $T$ is the equalizer of $T$ and the constant morphism $0$, and the kernel of a group homomorphism $\varphi$ is the equalizer of $\varphi$ and the constant homomorphism $\epsilon$.
+
+#### 6.1 Proof: the kernel of a linear transformation is an equalizer
+
+Let's think about this equalizer:
 
 ```tikz
 \usepackage{tikz-cd}
@@ -175,6 +181,8 @@ $i$ is indeed a <a href="https://en.wikipedia.org/wiki/Monomorphism" class="text
 
 
 We have seen that T induces an injective linear transformation <br> $T': V/\operatorname{Ker}(T)) \to W$ because in $V/\operatorname{Ker}(T)$ all elements of $\operatorname{Ker}(T)$ are the same then $\operatorname{Ker}(T') = \{0\} $.
+
+#### 6.2 Proof: the kernel of a group homomorphism is an equalizer
 
 Now let us see the same but with groups. The equalizer is:
 
@@ -248,7 +256,7 @@ $\blacksquare$
 The <a href="https://en.wikipedia.org/wiki/Isomorphism_theorems" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">first isomorphism theorem of group theory</a> guarantees that the induced morphism $\varphi': G/\operatorname{Ker}(\varphi) \to H$ by $\varphi$ is indeed a monomorphism (an injective group <a href="https://en.wikipedia.org/wiki/Homomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">homomorphism</a>). This result is also because in $G/\operatorname{Ker}(\varphi)$, all elements of $\operatorname{Ker}(\varphi)$ are the same.
 
 
-### 6. Conclusion
+### 7. Conclusion
 
 Let's think about the pattern: we have two algebraic structures such that the notion of injectivity for structure-preserving morphisms between objects is equivalent to the condition that the only element of the domain object mapping to the identity element of the codomain object is the identity element of the domain—which, in the case of vector spaces, is the additive identity $V_0$, which is the operation used to construct the quotient. So, when we have structures in a category with equalizers, a notion of injectivity of morphisms characterized by a unique preimage of some element of the codomain of the morphism, quotient objects and the equalizer are suitable for quotients. We can always force injectivity by taking the morphism induced by the original morphism from the quotient of the domain and the equalizer of the original morphism and the constant morphism that sends all elements of the domain to the element that characterizes injectivity in the structure to the codomain of the original morphism.
 
@@ -258,7 +266,7 @@ Also, if we restrict the codomain of the obtained morphism to the image of the o
 We have seen this phenomenon in vector spaces and groups and it seems like there are a lot of conditions involved, but it is much more common than one might think. but it is far more general. The same construction appears in modules, rings, Lie algebras, Boolean algebras, and, more generally, in every variety of universal algebras. In each case, one quotients the domain by the kernel (or, more fundamentally, by the kernel congruence) to obtain the largest quotient through which the original morphism factors as a monomorphism.
 
 
-### 7. References
+### 8. References
 
 - **Emily Riehl.** <a href="https://math.jhu.edu/~eriehl/context/" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">*Category Theory in Context*</a>. Aurora: Dover Modern Math Originals. Mineola, NY: Dover Publications, 2016.
 - **Sheldon Axler.** <a href="https://linear.axler.net/" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">*Linear Algebra Done Right*</a>. 4th ed. Undergraduate Texts in Mathematics. Cham: Springer, 2024.
