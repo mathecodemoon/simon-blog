@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../../data/projects";
+import { truncate } from "../../utils/text";
 
 interface Props {
 	project: Project;
@@ -30,7 +31,7 @@ const { project, compact = false } = Astro.props;
 			<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75" />
 		</svg>
 	</div>
-	<p class:list={["mt-3 leading-6 text-textColor/80", { "line-clamp-3": compact }]}>{project.description}</p>
+	<p class:list={["mt-3 leading-6 text-textColor/80", { "line-clamp-3": compact }]} title={project.description}>{truncate(project.description)}</p>
 	{!compact && project.repositories && (
 		<div class="relative z-10 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-textColor/70">
 			<span>Repositories:</span>

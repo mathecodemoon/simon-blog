@@ -17,11 +17,7 @@ const { count, label = "Featured projects carousel" } = Astro.props;
 	</div>
 
 	<div class="mt-5 flex items-center justify-between gap-4">
-		<div class="featured-projects-dots flex gap-2" aria-hidden="true">
-			{Array.from({ length: count }).map((_, index) => (
-				<span class:list={["h-1.5 rounded-full bg-textColor/25 transition-all", index === 0 ? "w-6 bg-accent" : "w-1.5"]}></span>
-			))}
-		</div>
+		<div class="featured-projects-dots flex gap-2" aria-hidden="true"></div>
 		<div class="flex gap-2">
 			<button class="carousel-button carousel-prev" type="button" aria-label="Previous featured project" disabled>
 				<span aria-hidden="true">←</span>
@@ -38,22 +34,47 @@ const { count, label = "Featured projects carousel" } = Astro.props;
 		connectedCallback() {
 			const track = this.querySelector<HTMLElement>(".featured-projects-track");
 			const slides = [...this.querySelectorAll<HTMLElement>(".featured-projects-slide")];
-			const dots = [...this.querySelectorAll<HTMLElement>(".featured-projects-dots span")];
+			const dotsContainer = this.querySelector<HTMLElement>(".featured-projects-dots");
 			const previous = this.querySelector<HTMLButtonElement>(".carousel-prev");
 			const next = this.querySelector<HTMLButtonElement>(".carousel-next");
-			if (!track || !slides.length || !previous || !next) return;
+			if (!track || !slides.length || !dotsContainer || !previous || !next) return;
 
+			const GAP = 20;
+			let dots: HTMLSpanElement[] = [];
 			let activeIndex = 0;
-			const update = () => {
+
+			const buildDots = () => {
 				const slideWidth = slides[0]?.offsetWidth || 1;
-				activeIndex = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / (slideWidth + 20))));
-				dots.forEach((dot, index) => {
-					dot.classList.toggle("w-6", index === activeIndex);
-					dot.classList.toggle("bg-accent", index === activeIndex);
-					dot.classList.toggle("w-1.5", index !== activeIndex);
+				const perView = Math.max(1, Math.round((track.clientWidth + GAP) / (slideWidth + GAP)));
+				const positionCount = Math.max(1, slides.length - perView + 1);
+				dotsContainer.innerHTML = "";
+				dots = Array.from({ length: positionCount }, () => {
+					const dot = document.createElement("span");
+					dot.classList.add("h-1.5", "rounded-full", "bg-textColor/25", "transition-all");
+					dotsContainer.appendChild(dot);
+					return dot;
+				});
+				render();
+			};
+
+			const render = () => {
+				dots.forEach((dot, dotIndex) => {
+					dot.classList.toggle("w-6", dotIndex === activeIndex);
+					dot.classList.toggle("bg-accent", dotIndex === activeIndex);
+					dot.classList.toggle("w-1.5", dotIndex !== activeIndex);
 				});
 				previous.disabled = track.scrollLeft <= 2;
 				next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+			};
+
+			const update = () => {
+				const slideWidth = slides[0]?.offsetWidth || 1;
+				let index = Math.round(track.scrollLeft / (slideWidth + GAP));
+				if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 2) {
+					index = dots.length - 1;
+				}
+				activeIndex = Math.min(dots.length - 1, Math.max(0, index));
+				render();
 			};
 
 			const goTo = (index: number) => {
@@ -63,7 +84,11 @@ const { count, label = "Featured projects carousel" } = Astro.props;
 			previous.addEventListener("click", () => goTo(activeIndex - 1));
 			next.addEventListener("click", () => goTo(activeIndex + 1));
 			track.addEventListener("scroll", update, { passive: true });
-			window.addEventListener("resize", update);
+			window.addEventListener("resize", () => {
+				buildDots();
+				update();
+			});
+			buildDots();
 			update();
 		}
 	}

@@ -12,9 +12,9 @@
     --theme-bg: 0deg 0% 98%;
     --theme-link: 172deg 18% 41%;
     --theme-text: 203deg 11% 15%;
-    --theme-accent: 351deg 66% 48%;
+    --theme-accent: 25deg 66% 48%;
     --theme-accent-2: 0deg 0% 7%;
-    --theme-quote: 351deg 66% 48%;
+    --theme-quote: 25deg 66% 48%;
     --theme-surface: 0deg 0% 100%;
     --theme-border: 203deg 11% 80%;
     --h2-color: hsl(var(--theme-accent));
