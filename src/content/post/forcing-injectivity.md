@@ -174,8 +174,11 @@ $$
 Suppose that there exists
 
 $$
-\alpha: Z \to \operatorname{Ker}(T) \text{ such that }i \circ \alpha = z, \text{then } i\circ \alpha = i\circ z'
+\alpha: Z \to \operatorname{Ker}(T) \text{ such that }i \circ \alpha = z
 $$
+
+$$\text{then } i\circ \alpha = i\circ z'$$
+
 
 $i$ is indeed a <a href="https://en.wikipedia.org/wiki/Monomorphism" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">monomorphism</a>, then it is left-cancellable; therefore $\alpha = z$. $\blacksquare$
 
