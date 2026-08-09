@@ -3,7 +3,7 @@ import type { SiteConfig } from "./types";
 
 export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: "MathecodemoonDev",
+	author: "Mathecodemoon",
 	email: "matecodemoon@gmail.com",
 	github: "https://github.com/mathecodemoon",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.

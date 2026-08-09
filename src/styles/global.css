@@ -101,6 +101,15 @@
   white-space: pre;
 }
 
+/* Ecuaciones KaTeX largas: en pantallas pequeñas se deja un pequeño
+   margen para que la fórmula no se pegue al borde de la pantalla */
+.prose .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0.75rem;
+}
+
 @layer components {
   .project-card {
     @apply relative h-full w-full overflow-hidden rounded-sm border border-themeBorder bg-surface p-6 shadow-sm transition-all duration-200;
