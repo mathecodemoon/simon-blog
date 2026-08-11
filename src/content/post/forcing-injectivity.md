@@ -19,17 +19,17 @@ $$
 
 ### 2. Quotient groups
 
-When you have a <a href="https://ncatlab.org/nlab/show/group" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">group</a> G and a <a href="https://ncatlab.org/nlab/show/normal+subgroup" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">normal subgroup</a> H, the quotient $G/U$ group is:
+When you have a <a href="https://ncatlab.org/nlab/show/group" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">group</a> G and a <a href="https://ncatlab.org/nlab/show/normal+subgroup" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">normal subgroup</a> H, the quotient $G/H$ group is:
 
 $$
-G/U =\{ g \cdot H : g \in G \}
+G/H =\{ g \cdot H : g \in G \}
 $$
 
 ### 3. Linear Transformation kernel
 
 $$
 \begin{gathered}
-\operatorname{Ker}(T: V \to W) := \{v \in V \mid T(v) = W_{0} \}
+\operatorname{Ker}(T: V \to W) := \{v \in V \mid T(v) = 0 \}
 \end{gathered}
 $$
 
