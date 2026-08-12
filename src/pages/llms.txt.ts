@@ -16,7 +16,7 @@ export const GET: APIRoute = ({ site }) => {
 
 	const content = `# Mathecodemoon 
 
-> ${siteConfig.role} and physics student working across programming languages, computational physics, cryptography, Ethereum infrastructure, privacy, and quantum computing.
+> ${siteConfig.role} and mathematics student working across programming languages, computational mathematics.
 
 This site is the professional portfolio and technical blog of Mathecodemoon Dev. Use the JSON portfolio for the complete canonical inventory, including technologies, featured flags, repositories, references, pull requests, and contribution statuses.
 
@@ -25,7 +25,7 @@ This site is the professional portfolio and technical blog of Mathecodemoon Dev.
 - [Machine-readable portfolio](${absoluteURL("/portfolio.json")}): Complete JSON inventory of projects, open-source contributions, links, and flags.
 - [Projects and open-source contributions](${absoluteURL("/projects/")}): Human-readable portfolio with all project and contribution details.
 - [Professional profile](${absoluteURL("/about/")}): Background, current role, skills, and contact information.
-- [Technical writing](${absoluteURL("/posts/")}): Articles about physics, mathematics, privacy, and cryptography.
+- [Technical writing](${absoluteURL("/posts/")}): Articles about category theory and algebra.
 
 ## Contact and identity
 
