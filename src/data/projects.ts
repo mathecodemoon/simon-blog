@@ -56,6 +56,15 @@ export const projects: Project[] = [
 		technologies: ["Python", "Deep Learning", "Computer Vision"],
 		featured: true,
 	},
+	{
+		id: "simplerag",
+		name: "SimpleRAG",
+		description:
+			"Question-answering assistant over personal documents built on Retrieval-Augmented Generation with InsForge. It combines two LLM-routed strategies: semantic search over pgvector embeddings of the uploaded documents, and read-only SQL queries over structured book metadata, answering only from the documents' content.",
+		github: "https://github.com/mathecodemoon/SimpleRAG",
+		technologies: ["TypeScript", "React", "RAG", "InsForge", "pgvector", "LLMs"],
+		featured: true,
+	},
 ];
 
 export const openSourceContributions: OpenSourceContribution[] = [

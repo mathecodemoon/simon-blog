@@ -1,6 +1,5 @@
 ---
 import type { OpenSourceContribution } from "../../data/projects";
-import { truncate } from "../../utils/text";
 
 interface Props {
 	contribution: OpenSourceContribution;
@@ -31,8 +30,8 @@ const statusClasses = {
 			<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75" />
 		</svg>
 	</div>
-	<p class:list={["mt-3 flex-1 leading-6 text-textColor/80", { "line-clamp-3": compact }]} title={contribution.description}>{truncate(contribution.description)}</p>
-	<ul class="mt-5 flex flex-wrap gap-2" aria-label={`Technologies used in ${contribution.name} contributions`}>
+	<p class:list={["mt-3 leading-6 text-textColor/80", { "line-clamp-3": compact }, { "line-clamp-4": !compact }]} title={contribution.description}>{contribution.description}</p>
+	<ul class="mt-auto pt-5 flex flex-wrap gap-2" aria-label={`Technologies used in ${contribution.name} contributions`}>
 		{contribution.technologies.map((technology) => <li class="project-tag">{technology}</li>)}
 	</ul>
 	{!compact && (
