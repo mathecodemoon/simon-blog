@@ -64,6 +64,15 @@
   background-color: hsl(var(--theme-accent));
 }
 
+/* Hide the TOC box's scrollbar while keeping it scrollable */
+.toc {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.toc::-webkit-scrollbar {
+  display: none;
+}
+
 /* Diagramas TikZ renderizados con TikZJax */
 .tikz-diagram {
   display: block;
