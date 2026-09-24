@@ -30,7 +30,10 @@ function extractTikzBlocks(markdown) {
 	const regex = /```tikz\n([\s\S]*?)```/g;
 	let match;
 	while ((match = regex.exec(markdown)) !== null) {
-		blocks.push(match[1]);
+		// remark-parse's `node.value` (which the remark plugin hashes) does not
+		// include the trailing newline before the closing fence. Strip it so
+		// the hashes match and the cache is actually used.
+		blocks.push(match[1].replace(/\n$/, ''));
 	}
 	return blocks;
 }
