@@ -2,9 +2,8 @@ import type { Code, Root } from "mdast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import tex2svg from "isomorphic-tikzjax";
 
 const TIKZ_OPTIONS = {
@@ -13,7 +12,10 @@ const TIKZ_OPTIONS = {
 	fontCssUrl: "/tikz/fonts.css",
 };
 
-const cacheDir = join(dirname(fileURLToPath(import.meta.url)), "../tikz-cache");
+// Astro bundles this plugin, so `import.meta.url` points at the compiled
+// artifact, not the source tree. Resolve the cache from the project root
+// instead, which is stable in every build environment.
+const cacheDir = join(process.cwd(), "src/tikz-cache");
 
 function cacheKey(source: string): string {
 	return createHash("sha1").update(source).digest("hex").slice(0, 16);
@@ -45,10 +47,10 @@ export const remarkTikZ: Plugin<[], Root> = () => {
 			const cachedPath = join(cacheDir, `${id}.svg`);
 			let svg: string | null = null;
 
-			try {
+			if (existsSync(cachedPath)) {
 				svg = readFileSync(cachedPath, "utf8");
-			} catch {
-				// Not in cache: render live (dev or newly edited diagram).
+			} else {
+				console.warn(`[remarkTikZ] ${id}.svg not in cache, rendering live (run node bin/render-tikz.mjs)`);
 			}
 
 			if (!svg) {
