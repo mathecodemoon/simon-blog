@@ -2,7 +2,7 @@
 title: "The Syntactic Category and Categorical Semantics"
 description: "First-order signatures, geometric theories, the syntactic category, and how cartesian functors give models."
 publishDate: "23 September 2026"
-tags: ["Math", "Category Theory", "Topos Theory", "Logic"]
+tags: ["Math", "Category Theory", "Logic"]
 ---
 
 ## 0. The First-Order Signature
@@ -13,13 +13,13 @@ In the framework of topos-theoretic semantics, the **signature** is the purely s
 
 A **first-order signature** $\Sigma$ consists of the following data:
 
-1.  **Sorts ($\Sigma$-Sort):** A set of *sorts* (or types), denoted by $A, B, C, \dots$.
-2.  **Function Symbols ($\Sigma$-Fun):** A set of function symbols, each equipped with a *type* consisting of a finite non-empty list of sorts. We write:
+1.  **Sorts ($\Sigma$-Sort):** A set of _sorts_ (or types), denoted by $A, B, C, \dots$.
+2.  **Function Symbols ($\Sigma$-Fun):** A set of function symbols, each equipped with a _type_ consisting of a finite non-empty list of sorts. We write:
     $$
     f : A_1 \cdots A_n \to B
     $$
     to indicate that $f$ has type $A_1, \dots, A_n, B$. If $n = 0$, $f$ is called a **constant** of sort $B$.
-3.  **Relation Symbols ($\Sigma$-Rel):** A set of relation symbols, each equipped with a *type* consisting of a finite list of sorts. We write:
+3.  **Relation Symbols ($\Sigma$-Rel):** A set of relation symbols, each equipped with a _type_ consisting of a finite list of sorts. We write:
     $$
     R \rightarrowtail A_1 \cdots A_n
     $$
@@ -27,7 +27,7 @@ A **first-order signature** $\Sigma$ consists of the following data:
 
 ### 0.2. Diagram of a Signature
 
-The following diagram visualizes $\Sigma$ as a labelled directed hypergraph, where sorts are nodes, functions are arrows, and relations are subobject markers.
+The following diagram visualizes $\Sigma$ as a labeled directed hypergraph, where sorts are nodes, functions are arrows, and relations are subobject markers.
 
 ```tikz
 \usepackage{tikz-cd}
@@ -44,7 +44,7 @@ The following diagram visualizes $\Sigma$ as a labelled directed hypergraph, whe
 
 ## 1. Language
 
-Following the conventions of *Theories, Sites, Toposes*, once a signature $\Sigma$ is fixed, we generate its language recursively. This language is stratified into three distinct levels: **terms** (which denote elements), **formulas** (which denote propositions), and **sequents** (which express entailment).
+Following the conventions of _Theories, Sites, Toposes_, once a signature $\Sigma$ is fixed, we generate its language recursively. This language is stratified into three distinct levels: **terms** (which denote elements), **formulas** (which denote propositions), and **sequents** (which express entailment).
 
 ### 1.1. Terms
 
@@ -58,8 +58,6 @@ A term is **closed** if it has no free variables.
 
 A term is therefore an expression built from variables, constants, and function symbols. Its purpose is to **denote an element of a sort** — it represents an object of a given type within the language.
 
-A **context** $\Gamma$ is a finite list of variable declarations $x_1 : A_1, \ldots, x_n : A_n$. A term $t$ of sort $A$ in context $\Gamma$, written $\Gamma \mid t : A$, is a term whose free variables are among those declared in $\Gamma$.
-
 ### 1.2. Formulas
 
 **Definition.** The **formulas** over a signature $\Sigma$ are built from **atomic formulas** using the logical connectives and quantifiers. An atomic formula is either:
@@ -72,45 +70,53 @@ The set of formulas is the smallest collection containing all atomic formulas an
 $$
 \phi \wedge \psi \quad \text{(conjunction)}
 $$
+
 $$
 \phi \vee \psi \quad \text{(disjunction)}
 $$
+
 $$
 \phi \Rightarrow \psi \quad \text{(implication)}
 $$
+
 $$
 \neg \phi \quad \text{(negation)}
 $$
+
 $$
 \exists x : A. \, \phi \quad \text{(existential quantification)}
 $$
+
 $$
 \forall x : A. \, \phi \quad \text{(universal quantification)}
 $$
 
-A formula $\phi$ with free variables contained in a context $\Gamma$ is denoted by $\Gamma \mid \phi$.
+### 1.3. Free Variables
 
-### 1.3. Geometric Formulas
+For every formula $\phi$, a variable $x$ in $\phi$ is free if and only if it is not bound by any quantifier. For example, in the formula $\forall x: y \cdot x = x$, the variable $y$ is free, while the variable $x$ is bound.
 
-The **geometric formulas** — which are central to the topos-theoretic bridge — are those built from atomic formulas using only:
+### 1.4. Geometric Formulas
+
+The **geometric formulas** are those built from atomic formulas using only:
 
 - Finite conjunctions ($\wedge$)
 - Finite disjunctions ($\vee$)
 - Existential quantification ($\exists$)
 
-They **do not** contain implication ($\Rightarrow$), negation ($\neg$), or universal quantification ($\forall$) at the top level.
+They **do not** contain implication ($\Rightarrow$), negation ($\neg$), or universal quantification ($\forall$).
 
-### 1.4. Context
+### 1.5. Context
 
 **Definition.** A **context** over a signature $\Sigma$ is a finite list of variable declarations of the form:
+
 $$
 \vec{x} = (x_1 : A_1, \ldots, x_n : A_n)
 $$
+
 where each $x_i$ is a variable and each $A_i$ is a sort (type) in $\Sigma$.
 **Notation.** A context is typically denoted by $\Gamma$ or $\vec{x}$. When we write $\Gamma \mid \phi$, we indicate that the formula $\phi$ has all its free variables declared in the context $\Gamma$. Similarly, $\Gamma \mid t : A$ indicates that the term $t$ is of sort $A$ and has its free variables in $\Gamma$.
 
-
-### 1.5. Sequents
+### 1.6. Sequents
 
 **Definition.** A **sequent** over a signature $\Sigma$ is an expression of the form:
 
@@ -120,57 +126,64 @@ $$
 
 where $\Gamma$ is a finite context, and $\phi$ and $\psi$ are formulas whose free variables are contained in $\Gamma$.
 
-The intended meaning is that $\psi$ follows from $\phi$ under the assumptions on the variables declared in $\Gamma$.
+The intended meaning is that $\psi$ follows from $\phi$ for variables in $\Gamma$.
 
 A **geometric sequent** is a sequent $\phi \vdash_{\Gamma} \psi$ where both $\phi$ and $\psi$ are geometric formulas.
 
+### 1.7. Geometric Theories
 
-### 1.6. Geometric Theories
-
-**Definition.** A **geometric theory** $\mathbb{T}$ over a signature $\Sigma$ is a set of geometric sequents over $\Sigma$, closed under the rules of intuitionistic first-order logic (or, more specifically, the geometric sequent calculus).
+**Definition.** A **geometric theory** $\mathbb{T}$ over a signature $\Sigma$ is a set of geometric sequents over $\Sigma$.
 
 ## 2. Group Theory
 
-Group theory is one of the most fundamental structures in modern mathematics. The **theory of groups** can be presented as a **geometric theory** over a suitable first-order signature.
+Group theory is one of the most fundamental structures in modern mathematics. The **theory of <a href="https://ncatlab.org/nlab/show/group" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">groups</a>** can be presented as a **geometric theory** over a suitable first-order signature.
 
 ### 2.1. Signature of Groups
 
 Following the definitions of geometric logic, we define the signature $\Sigma_{\text{Grp}}$ for the theory of groups as follows:
 
 **Sorts:**
+
 - A single sort: $G$ (the sort of group elements).
 
 **Function Symbols:**
+
 - A constant symbol: $e : \to G$ (the identity element).
 - A binary function symbol: $\cdot : G\times G \to G$ (the group multiplication).
 - A unary function symbol: $(-)^{-1} : G \to G$ (the inverse operation).
 
 **Relation Symbols:**
+
 - The equality relation $=$ is assumed to be present in the logic.
 
 There are no additional relation symbols in the signature.
 
-### 2.2. The Geometric Axioms
+### 2.2. Group Geometric Axioms
 
 The theory of groups is axiomatized by the following geometric sequents (all in the empty context, as these are universal statements):
 
 **1. Associativity:**
+
 $$
 \top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)
 $$
 
 **2. Identity element:**
+
 $$
 \top \vdash_{\emptyset} x \cdot e = x
 $$
+
 $$
 \top \vdash_{\emptyset} e \cdot x = x
 $$
 
 **3. Inverse element:**
+
 $$
 \top \vdash_{\emptyset} x \cdot x^{-1} = e
 $$
+
 $$
 \top \vdash_{\emptyset} x^{-1} \cdot x = e
 $$
@@ -183,18 +196,20 @@ Each of these sequents is of the form $\phi \vdash_{\vec{x}} \psi$ where $\phi =
 
 ### 3.1. Objects
 
-The objects are the **renaming-equivalence classes** of geometric formulae-in-context $\{\vec{x} \cdot \phi\}$ over $\Sigma$.
+The objects are the **renaming-equivalence classes** of geometric formulas-in-context $\{\vec{x} \cdot \phi\}$ over $\Sigma$.
 
-That is, two formulae-in-context $\{\vec{x} \cdot \phi\}$ and $\{\vec{y} \cdot \psi\}$ represent the same object if they are related by **renaming (alpha-equivalence)**. This means that $\vec{y}$ is a bijective renaming of the variables $\vec{x}$, and $\psi$ is obtained from $\phi$ by replacing each variable $x_i$ with the corresponding $y_i$, following the standard capture-avoiding substitution rules for bound variables.
+That is, two formulas-in-context $\{\vec{x} \cdot \phi\}$ and $\{\vec{y} \cdot \psi\}$ represent the same object if they are related by **renaming (alpha-equivalence)**. This means that $\vec{y}$ is a bijective renaming of the variables $\vec{x}$, and $\psi$ is obtained from $\phi$ by replacing each variable $x_i$ with the corresponding $y_i$, following the standard capture-avoiding substitution rules for bound variables.
 
 The notation $\{\vec{x} \cdot \phi\}$ emphasizes that the object is the equivalence class, not a particular syntactic presentation of the formula.
 
 ### 3.2. Morphisms
 
 An arrow
+
 $$
 \{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}
 $$
+
 (where the contexts $\vec{x}$ and $\vec{y}$ are assumed to be disjoint without loss of generality) is a $\mathbb{T}$-provable-equivalence class $[\theta]$ of a geometric formula $\theta(\vec{x}, \vec{y})$ which is **$\mathbb{T}$-provably functional**.
 
 The equivalence class $[\theta]$ identifies two such formulas if they are provably equivalent in $\mathbb{T}$ in the combined context $(\vec{x}, \vec{y})$; that is, $\phi \vdash_{\vec{x}} \psi$ and $\psi \vdash_{\vec{y}} \phi$ are provable in $\mathbb{T}$.
@@ -217,10 +232,13 @@ $\theta$ is **$\mathbb{T}$-provably functional** if it satisfies the following t
 ### 3.3. Composition
 
 The composite of two arrows
+
 $$
 \{\vec{x} \cdot \phi\} \xrightarrow{[\theta]} \{\vec{y} \cdot \psi\} \xrightarrow{[\gamma]} \{\vec{z} \cdot \chi\}
 $$
-is defined as the $\mathbb{T}$-provable-equivalence class of the formula.
+
+is defined as the $\mathbb{T}$-provable-equivalence class of the formula:
+
 $$
 (\exists \vec{y}) \, (\theta \land \gamma)
 $$
@@ -230,34 +248,37 @@ This formula expresses the relation obtained by "composing" $\theta$ and $\gamma
 ### 3.4. Identity
 
 The identity arrow on an object $\{\vec{x} \cdot \phi\}$ is given by:
+
 $$
 \{\vec{x} \cdot \phi\} \xrightarrow{[\phi \land \vec{x} = \vec{x}']} \{\vec{x}' \cdot \phi[\vec{x}'/\vec{x}]\}
 $$
 
 Intuitively, the identity relation on $\phi$ holds exactly when the new variables $\vec{x}'$ are a renaming of $\vec{x}$ and $\phi$ holds for both.
 
-You should be sure that identity and composition are effectively **$\mathbb{T}$-provably functionals**.
+The reader should be sure that identity and composition are effectively **$\mathbb{T}$-provably functional**.
 
-Before continuing, there is a question that we should answer: why, at a morphism, the contexts of domain and codomain are assumed to be disjoint? And why does this not cause any problem?
+Before continuing, there is a question that we should answer: why, for a morphism, the contexts of the domain and codomain are assumed to be disjoint? And why does this not cause any problem?
 
 A reason for assuming that these contexts are disjoint is that in the single-valuedness sequent, the sequent $(\theta \land \theta[\vec{z}/\vec{y}]) \vdash_{\vec{x}, \vec{y}, \vec{z}} (\vec{y} = \vec{z})$ works with substitution: $\theta[\vec{z}/\vec{y}]$ is $\theta$, but with the free variables $\vec{y}$ substituted by the variables $\vec{z}$. As we specified in the definition of the **renaming (alpha-equivalence)** of objects, the sequent $(\theta \land \theta[\vec{z}/\vec{y}]) \vdash_{\vec{x}, \vec{y}, \vec{z}} (\vec{y} = \vec{z})$ aims to say that for the same inputs $\vec{x}$, $\theta$ gives the same "output"; but if $\vec{x}$ and $\vec{y}$ have a variable in common, this variable will be changed by the substitution $\theta[\vec{z}/\vec{y}]$, and this degrades the meaning of the sequent $(\theta \land \theta[\vec{z}/\vec{y}]) \vdash_{\vec{x}, \vec{y}, \vec{z}} (\vec{y} = \vec{z})$.
 
-This supposition is not a problem because an object $\{\vec{x} \cdot \phi\}$ is an equivalence class, and if the representative of the class has variables in common with the other object of the arrow, we only need to change the representative for one that is disjoint.
+This supposition is not a problem because an object $\{\vec{x} \cdot \phi\}$ is an equivalence class, and if the representative of the class has variables in common with the other object of the arrow, we only need to replace the representative with one that is disjoint.
 
 ### 3.5. Isomorphisms
 
-An isomorphism in a category $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, reflecting the above totality and well-definedness sequents, a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ can be interpreted as a proof that $\phi$ implies $\psi$; so an isomorphism is a proof of the equivalence between two formulas. In fact, two objects of the syntactic category are isomorphic if and only if they are equivalent formulas with contexts of the same type and length.
+An isomorphism in a <a href="https://ncatlab.org/nlab/show/category" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">category</a> $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, reflecting the above totality and well-definedness sequents, a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ can be interpreted as a proof that $\phi$ implies $\psi$; so an isomorphism is a proof of the equivalence between two formulas. In fact, two objects of the syntactic category are isomorphic if and only if they are equivalent formulas with contexts of the same type and length.
 
 ## 4. Products
 
 ### 4.1. Definition of Product
 
-A product in a category $\mathcal{C}$ in category theory is a limit of a very special functor; this definition is analogous to an equalizer but with a functor indexed by:
+A product in a category $\mathcal{C}$ in category theory is a <a href="https://en.wikipedia.org/wiki/Limit_(category_theory)" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">limit</a> of a very special <a href="https://en.wikipedia.org/wiki/Functor" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">functor</a>; this definition is analogous to an <a href="/posts/forcing-injectivity/#5-what-is-an-equalizer-" class="text-accent font-bold">equalizer</a> but with a functor indexed by:
+
 $$
 \bullet \qquad \bullet
 $$
 
 The functor $F: J \to \mathcal{C}$ will be:
+
 $$
 F(1) = A \qquad F(2) = B
 $$
@@ -273,7 +294,7 @@ The diagram that represents a product is simply:
 \end{document}
 ```
 
-A cone with nadir $N$ will be:
+A <a href="https://en.wikipedia.org/wiki/Cone_(category_theory)" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">cone</a> with nadir $N$ will be:
 
 ```tikz
 \usepackage{tikz-cd}
@@ -288,7 +309,7 @@ A cone with nadir $N$ will be:
 \end{document}
 ```
 
-And the universal cone with nadir $A \times B$:
+And the <a href="/posts/forcing-injectivity/#5-what-is-an-equalizer-" class="text-accent font-bold">universal cone</a> with nadir $A \times B$:
 
 ```tikz
 \usepackage{tikz-cd}
@@ -303,7 +324,7 @@ And the universal cone with nadir $A \times B$:
 \end{document}
 ```
 
-This is basically the product.
+This universal cone is the product $A\times B$.
 
 ### 4.2. Cartesian Categories
 
@@ -316,28 +337,37 @@ As we said, we only need to see that the syntactic category $\mathcal{C}_\mathbb
 #### 4.3.1. Terminal Object
 
 The **terminal object** in $\mathcal{C}_{\mathbb{T}}$ is:
+
 $$
 1 := \{\emptyset \cdot \top\}
 $$
+
 the formula-in-context with empty context and formula $\top$.
 
 For any object $\{\vec{x} \cdot \phi\}$, there is a unique morphism:
+
 $$
 !_{\{\vec{x} \cdot \phi\}} : \{\vec{x} \cdot \phi\} \longrightarrow 1
 $$
+
 given by the equivalence class of the formula:
+
 $$
 \theta(\vec{x}) := \top
 $$
+
 which is trivially provably functional.
 
 #### 4.3.2. Binary Product
 
 For any two objects:
+
 $$
 A := \{\vec{x} \cdot \phi\}, \qquad B := \{\vec{y} \cdot \psi\}
 $$
+
 where $\vec{x}$ and $\vec{y}$ are disjoint contexts (we can always rename variables to ensure this); their **product** in $\mathcal{C}_{\mathbb{T}}$ is:
+
 $$
 A \times B := \{\vec{x}, \vec{y} \cdot \phi \land \psi\}
 $$
@@ -345,19 +375,25 @@ $$
 ##### 4.3.2.1. Projection Morphisms
 
 The **first projection** is:
+
 $$
-\pi_1 : \{\vec{x}, \vec{y} \cdot \phi \land \psi\} \longrightarrow \{\vec{x} \cdot \phi\}
+\pi_1 : \{\vec{x}, \vec{y} \cdot \phi \land \psi\} \longrightarrow \{\vec{x'} \cdot \phi\}
 $$
+
 given by:
+
 $$
 \pi_1(\vec{x}, \vec{y}, \vec{x}') := (\vec{x} = \vec{x}') \land \phi \land \psi
 $$
 
 The **second projection** is:
+
 $$
-\pi_2 : \{\vec{x}, \vec{y} \cdot \phi \land \psi\} \longrightarrow \{\vec{y} \cdot \psi\}
+\pi_2 : \{\vec{x}, \vec{y} \cdot \phi \land \psi\} \longrightarrow \{\vec{y'} \cdot \psi\}
 $$
+
 given by:
+
 $$
 \pi_2(\vec{x}, \vec{y}, \vec{y}') := (\vec{y} = \vec{y}') \land \phi \land \psi
 $$
@@ -365,27 +401,37 @@ $$
 ##### 4.3.2.2. Universal Property
 
 For any object $\{\vec{z} \cdot \chi\}$ equipped with morphisms:
+
 $$
 \theta : \{\vec{z} \cdot \chi\} \longrightarrow \{\vec{x} \cdot \phi\}
 $$
+
 and
+
 $$
 \gamma : \{\vec{z} \cdot \chi\} \longrightarrow \{\vec{y} \cdot \psi\}
 $$
+
 there exists a **unique** morphism:
+
 $$
 \langle \theta, \gamma \rangle : \{\vec{z} \cdot \chi\} \longrightarrow \{\vec{x}, \vec{y} \cdot \phi \land \psi\}
 $$
+
 given by:
+
 $$
 \langle \theta, \gamma \rangle(\vec{z}, \vec{x}, \vec{y}) := \theta(\vec{z}, \vec{x}) \land \gamma(\vec{z}, \vec{y})
 $$
 
 This morphism is the unique one satisfying:
+
 $$
 \pi_1 \circ \langle \theta, \gamma \rangle = \theta
 $$
+
 and
+
 $$
 \pi_2 \circ \langle \theta, \gamma \rangle = \gamma
 $$
@@ -446,13 +492,24 @@ Now that we know the signature and sequents of group theory, we know what the ob
 
 ### 6.1. Operations as Morphisms
 
+Consider the object $\{x : G \cdot \top\}$ in the category $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$, which represents an arbitrary element $x$ of the group $G$.
+
+To define group multiplication, we must specify it for every pair $(x,y) \in G \times G$. Therefore, the operation should be defined on the object $\{x : G, y : G \cdot \top\}$. In $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$, this object is precisely the categorical product
+
+$$
+\{x : G \cdot \top\} \times \{y : G \cdot \top\}.
+$$
+
 #### 6.1.1. The Identity (Unit)
 
 The identity element is a morphism from the terminal object to the carrier object:
+
 $$
 \{\emptyset \cdot \top\} \longrightarrow \{x : G \cdot \top\}
 $$
+
 It is given by the equivalence class of the formula:
+
 $$
 \theta _{e}(x) := (x = e)
 $$
@@ -460,10 +517,13 @@ $$
 #### 6.1.2. The Multiplication (Product)
 
 The multiplication operation is a morphism from the product of the carrier with itself to the carrier:
+
 $$
 \{x : G, y : G \cdot \top\} \longrightarrow \{z : G \cdot \top\}
 $$
+
 It is given by the equivalence class of the formula:
+
 $$
 \theta_{\cdot}(x, y, z) := (z = x \cdot y)
 $$
@@ -471,10 +531,13 @@ $$
 #### 6.1.3. The Inverse
 
 The inverse operation is a morphism from the carrier to itself:
+
 $$
 \{x : G \cdot \top\} \longrightarrow \{y : G \cdot \top\}
 $$
+
 It is given by the equivalence class of the formula:
+
 $$
 \theta _{-1}(x, y) := (y = x^{-1})
 $$
@@ -503,45 +566,36 @@ In $\mathcal{C}_\mathbb{G}$, consider this diagram:
 Commutativity means: $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$; let's break down these morphisms.
 
 Top morphism:
+
 $$
 \theta_{\cdot} \times \mathrm{Id}_{\{z \cdot \top\}} := (xy = x \cdot y) \land (z' = z)
 $$
+
 Right morphism:
+
 $$
 \theta_{\cdot} := (xyz = xy \cdot z')
 $$
+
 Composition $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}})$:
+
 $$
 (\exists xy, z') \big( (xy = x \cdot y) \land (z' = z) \land (xyz = xy \cdot z') \big)
 $$
+
 This formula is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to:
+
 $$
 xyz = (x \cdot y) \cdot z
 $$
+
 Analogously, the second composition is:
+
 $$
 xyz = x \cdot (y \cdot z)
 $$
 
-Then, by the associativity axiom $\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, we have: $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$.
-
-Note that this result comes directly from the associativity axiom; analogously, the diagram of invertibility commutes directly, following from the respective axioms:
-
-```tikz
-\usepackage{tikz-cd}
-
-\begin{document}
-
-\begin{tikzcd}[column sep=large, row sep=large]
-    \{x \cdot \top\} \arrow[r, "a"] \arrow[rd, "\theta_{e}"'] & \{x', y \cdot \top\} \arrow[d, "m"] & \{x \cdot \top\} \arrow[l, "b"'] \arrow[ld, "\theta_{e}"] \\
-    & \{z \cdot \top\} &
-\end{tikzcd}
-
-\end{document}
-```
-
-- $a = (\mathrm{Id}_{\{x \cdot \top\}}, \theta_{-1})$
-- $b = (\theta_{-1}, \mathrm{Id}_{\{x \cdot \top\}})$
+Then, by the associativity axiom $\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, this proves $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$.
 
 Existence of the neutral element is guaranteed by:
 
@@ -557,7 +611,90 @@ Existence of the neutral element is guaranteed by:
 \end{document}
 ```
 
-And this proves all group axioms for $\{x : G \cdot \top\}$ with $\theta _{e}$, $\theta _{\cdot}$ and $\theta _{-1}$.
+Let $a := \langle \mathrm{id}_G, \theta_{-1} \rangle$ and $b := \langle \theta_{-1}, \mathrm{id}_G \rangle.$
+
+Intuitively, $a$ takes an element $x \in G$ and sends it to the pair $(x, x^{-1})$, while $b$ takes $x \in G$ and sends it to the pair $(x^{-1}, x)$. In other words,
+
+$$
+a(x) = (x, x^{-1}), \qquad b(x) = (x^{-1}, x).
+$$
+
+The invertibility property is expressed by the commutativity of the following diagram:
+
+```tikz
+\usepackage{tikz-cd}
+
+\begin{document}
+
+\begin{tikzcd}[column sep=huge, row sep=large]
+\{x : G \cdot \top\} \arrow[r, "a"] \arrow[rd, "\theta_e"'] &
+\{x_l, x_r : G \cdot \top\} \arrow[d, "m"] &
+\{x : G \cdot \top\} \arrow[l, "b"'] \arrow[ld, "\theta_e"] \\
+& \{x' : G \cdot \top\} &
+\end{tikzcd}
+
+\end{document}
+```
+
+That is, $m \circ a = \theta_e$ and $m \circ b = \theta_e$ hold.
+
+Let us verify the first equation; the second is analogous. The morphism $a$ is given by
+
+$$
+a := (x_l = x) \land (x_r = x^{-1}),
+$$
+
+the multiplication $m$ is given by
+
+$$
+m := (x' = x_l \cdot x_r),
+$$
+
+and their composition $m \circ a$ is therefore
+
+$$
+(\exists x_l, x_r)\big( (x_l = x) \land (x_r = x^{-1}) \land (x' = x_l \cdot x_r) \big).
+$$
+
+This formula is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to
+
+$$
+x' = x \cdot x^{-1},
+$$
+
+and, by the inverse axiom $\top \vdash_{\emptyset} x \cdot x^{-1} = e$, to
+
+$$
+x' = e.
+$$
+
+But $x' = e$ is precisely the formula defining the constant morphism $\theta_e$. Hence $m \circ a = \theta_e$.
+
+Analogously, $b$ is given by
+
+$$
+b := (x_l = x^{-1}) \land (x_r = x),
+$$
+
+so the composition $m \circ b$ is
+
+$$
+(\exists x_l, x_r)\big( (x_l = x^{-1}) \land (x_r = x) \land (x' = x_l \cdot x_r) \big),
+$$
+
+which is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to
+
+$$
+x' = x^{-1} \cdot x,
+$$
+
+and hence, by the other inverse axiom $\top \vdash_{\emptyset} x^{-1} \cdot x = e$, to $x' = e$. Therefore $m \circ b = \theta_e$.
+
+These equations express the two inverse laws: multiplying any group element by its inverse, in either order, yields the identity element.
+
+This proves all the group axioms for the object $\{x : G \cdot \top\}$ equipped with multiplication $\theta_{\cdot}$, unit $\theta_e$ and inverse $\theta_{-1}$; hence $(\{x : G \cdot \top\}, \theta_{\cdot})$ is indeed a group.
+
+> **Note:** The commutativity of the last diagrams is what guarantees that $(\{x : G \cdot \top\}, \theta_{\cdot})$ is a group in $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$, and this commutativity follows directly from the axioms of $\mathbb{T}_{\mathsf{Grp}}$. If you have some background in category theory, you may know that functors preserve commutative diagrams, so the group structure can be transported to other categories via functors from $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$. We will dive into this fact next.
 
 ## 7. Canonical Σ-Structure
 
@@ -567,36 +704,42 @@ We already know the group theory signature and that the syntactic category is ca
 
 ### 7.2. Sorts
 
-For the unique sort $G$ of $\Sigma_{\mathsf{Grp}}$, we assign an object:
+For the unique sort $G$ of $\Sigma_{\mathsf{Grp}}$, we assign the object:
+
 $$
 \mathcal{M}(G) := \{x : G \cdot \top\}
 $$
-This is the **abstract group object**, the carrier of the group in the syntactic category.
 
 ### 7.3. Function Symbols
 
 #### 7.3.1. The Identity Constant
 
 The constant symbol $e : \to G$ is interpreted as a morphism from the terminal object:
+
 $$
 \mathcal{M}(e) : 1 \longrightarrow \mathcal{M}(G)
 $$
+
 given by the formula $\theta_{e}$.
 
 #### 7.3.2. The Multiplication Operation
 
-The binary function symbol $\cdot : G \, G \to G$ is interpreted as a morphism from the product of the carrier with itself:
+The binary function symbol $\cdot : G \times G \to G$ is interpreted as a morphism from the product of the carrier with itself:
+
 $$
 \mathcal{M}(\cdot) : \mathcal{M}(G) \times \mathcal{M}(G) \longrightarrow \mathcal{M}(G)
 $$
+
 given by the formula $\theta_{\cdot}$.
 
 #### 7.3.3. The Inverse Operation
 
 The unary function symbol $(-)^{-1} : G \to G$ is interpreted as a morphism from the carrier to itself:
+
 $$
 \mathcal{M}((-)^{-1}) : \mathcal{M}(G) \longrightarrow \mathcal{M}(G)
 $$
+
 given by the formula $\theta_{-1}$.
 
 Now $\mathcal{M}$ is a **Σ-structure**; as we have seen before, it also satisfies all axioms of $\mathbb{T}_{Grp}$, so $\mathcal{M}$ is a model for $\mathbb{T}_{Grp}$.
@@ -605,7 +748,7 @@ Now $\mathcal{M}$ is a **Σ-structure**; as we have seen before, it also satisfi
 
 ### 8.1. Definition
 
-Let $\mathcal{C}$ and $\mathcal{D}$ be cartesian categories. A functor $F:\mathcal{C}\to\mathcal{D}$ is called **cartesian** if it preserves finite products, i.e.
+Let $\mathcal{C}$ and $\mathcal{D}$ be cartesian categories. A functor $F:\mathcal{C}\to\mathcal{D}$ is called **cartesian** if it preserves finite products, i.e.,
 
 $$
 F(A\times B) \cong F(A)\times F(B)
@@ -614,6 +757,7 @@ $$
 for all $A,B\in\mathcal{C}$.
 
 Informally, one often writes this as
+
 $$
 F(A\times B)=F(A)\times F(B).
 $$
@@ -664,9 +808,9 @@ F_{\mathbb Z}(\theta_{-1}):\mathbb Z\to \mathbb Z,
 n\mapsto -n.
 $$
 
-As we have seen, this is a model for $\mathcal C_{\mathbb T_{\mathsf{Grp}}}$; specifically, it is the group $\mathbb{Z}$.
+As we have seen, this is a model for $\mathbb T_{\mathsf{Grp}}$; specifically, it is the group $\mathbb{Z}$.
 
-We have only talked about group theory because it is a very simple example, but this does not work only for this theory: the axioms of every geometric theory will be codified as commutative diagrams in the corresponding syntactic category, and every cartesian functor from this category to another will be a model for the theory.
+We have only talked about group theory because it is a very simple example, but this works not only for this theory: the axioms of every geometric theory will be codified as commutative diagrams in the corresponding syntactic category, and every cartesian functor from this category to another will be a model for the theory.
 
 ## 9. References
 
