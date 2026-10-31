@@ -1,13 +1,13 @@
 ---
 title: "The Syntactic Category and Categorical Semantics"
 description: "First-order signatures, geometric theories, the syntactic category, and how cartesian functors give models."
-publishDate: "23 September 2026"
+publishDate: "31 October 2026"
 tags: ["Math", "Category Theory", "Logic"]
 ---
 
 ## 0. The First-Order Signature
 
-In the framework of topos-theoretic semantics, the **signature** is the purely syntactic bedrock upon which all logical constructions are erected. It specifies the non-logical vocabulary without imposing any axioms.
+In the framework of mathematical logic, the **signature** is the purely syntactic bedrock upon which all logical constructions are erected. It specifies the non-logical vocabulary without imposing any axioms.
 
 ### 0.1. Definition
 
@@ -44,7 +44,7 @@ The following diagram visualizes $\Sigma$ as a labeled directed hypergraph, wher
 
 ## 1. Language
 
-Following the conventions of _Theories, Sites, Toposes_, once a signature $\Sigma$ is fixed, we generate its language recursively. This language is stratified into three distinct levels: **terms** (which denote elements), **formulas** (which denote propositions), and **sequents** (which express entailment).
+Once a signature $\Sigma$ is fixed, we generate its language recursively. This language is stratified into **terms** (which denote elements) and **formulas** (which denote propositions).
 
 ### 1.1. Terms
 
@@ -53,8 +53,6 @@ Given a signature $\Sigma$, the **terms** of sort $A$ over $\Sigma$ are defined 
 1. Every variable $x : A$ is a term of sort $A$.
 2. If $c : \to A$ is a constant symbol of $\Sigma$, then $c$ is a term of sort $A$.
 3. If $t_1 : A_1, \ldots, t_n : A_n$ are terms and $f : A_1 \cdots A_n \to B$ is a function symbol of $\Sigma$, then $f(t_1, \ldots, t_n)$ is a term of sort $B$.
-
-A term is **closed** if it has no free variables.
 
 A term is therefore an expression built from variables, constants, and function symbols. Its purpose is to **denote an element of a sort** — it represents an object of a given type within the language.
 
@@ -80,15 +78,15 @@ $$
 $$
 
 $$
-\neg \phi \quad \text{(negation)}
+\neg \ \phi \quad \text{(negation)}
 $$
 
 $$
-\exists x : A. \, \phi \quad \text{(existential quantification)}
+\exists x : \, \phi \quad \text{(existential quantification)}
 $$
 
 $$
-\forall x : A. \, \phi \quad \text{(universal quantification)}
+\forall x : \, \phi \quad \text{(universal quantification)}
 $$
 
 ### 1.3. Free Variables
@@ -132,7 +130,7 @@ A **geometric sequent** is a sequent $\phi \vdash_{\Gamma} \psi$ where both $\ph
 
 ### 1.7. Geometric Theories
 
-**Definition.** A **geometric theory** $\mathbb{T}$ over a signature $\Sigma$ is a set of geometric sequents over $\Sigma$.
+**Definition.** A **geometric theory** $\mathbb{T}$ over a signature $\Sigma$ is a set of geometric sequents over $\Sigma$ this set of sequents constitutes the <a href="https://ncatlab.org/nlab/show/axiom" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">axioms</a> of the theory, and this determines it.
 
 ## 2. Group Theory
 
@@ -160,7 +158,7 @@ There are no additional relation symbols in the signature.
 
 ### 2.2. Group Geometric Axioms
 
-The theory of groups is axiomatized by the following geometric sequents (all in the empty context, as these are universal statements):
+The theory of groups is axiomatized by the following geometric sequents, all in the empty context, as these are universal statements i.e are valid for all elements in the group
 
 **1. Associativity:**
 
@@ -188,11 +186,13 @@ $$
 \top \vdash_{\emptyset} x^{-1} \cdot x = e
 $$
 
-Each of these sequents is of the form $\phi \vdash_{\vec{x}} \psi$ where $\phi = \top$ and $\psi$ is an atomic equality formula. The context $\vec{x}$ contains the variables $x, y, z : G$ as needed.
+Each of these sequents is of the form $\phi \vdash_{\vec{x}} \psi$ where $\phi = \top$ and $\psi$ is an atomic equality formula, $\phi = \top$ in all these sequents again by the universal character of the axioms.
 
-> **Note:** These axioms are **geometric** because they are built from atomic formulas (equalities) using only conjunction (implicit in the context) and universal quantification at the meta-level. The absence of implication ($\Rightarrow$), negation ($\neg$), and disjunction ($\vee$) at the object level ensures that the theory is geometric.
+> **Note:** These axioms are **geometric** because they are built from atomic formulas (equalities) using only conjunction (implicit in the context) and universal quantification. The absence of implication ($\Rightarrow$), negation ($\neg$), and disjunction ($\vee$) at the object level ensures that the theory is geometric.
 
 ## 3. Syntactic Category
+
+Like any other <a href="https://ncatlab.org/nlab/show/category" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">category</a>, in order to give its definition we have to set up its objects, morphisms and composition.
 
 ### 3.1. Objects
 
@@ -229,6 +229,8 @@ $\theta$ is **$\mathbb{T}$-provably functional** if it satisfies the following t
    (\theta \land \theta[\vec{z}/\vec{y}]) \vdash_{\vec{x}, \vec{y}, \vec{z}} (\vec{y} = \vec{z})
    $$
 
+**Notation.** The last sequent uses a notation that we have not introduced yet: $\theta[\vec{z}/\vec{y}]$ denotes **substitution**. It is the formula obtained from $\theta$ by simultaneously replacing each free occurrence of $y_i$ with $z_i$ For example, if $\theta(x,y)$ is $y = x \cdot x$, then $\theta[z/y]$ is $z = x \cdot x$.
+
 ### 3.3. Composition
 
 The composite of two arrows
@@ -255,7 +257,7 @@ $$
 
 Intuitively, the identity relation on $\phi$ holds exactly when the new variables $\vec{x}'$ are a renaming of $\vec{x}$ and $\phi$ holds for both.
 
-The reader should be sure that identity and composition are effectively **$\mathbb{T}$-provably functional**.
+> **Note:** It's a good exercise to make sure that identity and composition are effectively **$\mathbb{T}$-provably functional**, by testing that these morphisms satisfy the corresponding sequents.
 
 Before continuing, there is a question that we should answer: why, for a morphism, the contexts of the domain and codomain are assumed to be disjoint? And why does this not cause any problem?
 
@@ -265,7 +267,7 @@ This supposition is not a problem because an object $\{\vec{x} \cdot \phi\}$ is 
 
 ### 3.5. Isomorphisms
 
-An isomorphism in a <a href="https://ncatlab.org/nlab/show/category" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">category</a> $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, reflecting the above totality and well-definedness sequents, a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ can be interpreted as a proof that $\phi$ implies $\psi$; so an isomorphism is a proof of the equivalence between two formulas. In fact, two objects of the syntactic category are isomorphic if and only if they are equivalent formulas with contexts of the same type and length.
+An isomorphism in a category $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, reflecting the above totality and well-definedness sequents, a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ can be interpreted as a proof that $\phi$ implies $\psi$; so an isomorphism is a proof of the equivalence between two formulas. In fact, two objects of the syntactic category are isomorphic if and only if they are equivalent formulas with contexts of the same type and length.
 
 ## 4. Products
 
@@ -309,7 +311,7 @@ A <a href="https://en.wikipedia.org/wiki/Cone_(category_theory)" class="text-acc
 \end{document}
 ```
 
-And the <a href="/posts/forcing-injectivity/#5-what-is-an-equalizer-" class="text-accent font-bold">universal cone</a> with nadir $A \times B$:
+And the <a href="https://en.wikipedia.org/wiki/Cone_(category_theory)#Universal_cones" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">universal cone</a> with nadir $A \times B$:
 
 ```tikz
 \usepackage{tikz-cd}
@@ -328,7 +330,7 @@ This universal cone is the product $A\times B$.
 
 ### 4.2. Cartesian Categories
 
-A category $\mathcal{C}$ is **cartesian** if and only if it has finite products; that is, the empty product (terminal object) and products for pairs of objects.
+A category $\mathcal{C}$ is **cartesian** if and only if it has finite products; that is, the empty product (<a href="https://en.wikipedia.org/wiki/Initial_and_terminal_objects" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">terminal object</a>) and products for pairs of objects.
 
 ### 4.3. Syntactic Category is Cartesian
 
@@ -500,6 +502,8 @@ $$
 \{x : G \cdot \top\} \times \{y : G \cdot \top\}.
 $$
 
+which is something very convenient for the next
+
 #### 6.1.1. The Identity (Unit)
 
 The identity element is a morphism from the terminal object to the carrier object:
@@ -544,9 +548,11 @@ $$
 
 Note that all these morphisms act on one special object $\{ x \cdot \top \}$.
 
-### 6.2. The Group Object
+### 6.2. The abstract Group Object
 
 The **abstract group object** in $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$ is the object $\{x : G \cdot \top\}$. This object, equipped with $\theta _{e}$, $\theta _{\cdot}$ and $\theta _{-1}$, has the structure of a group; let's see why.
+
+#### 6.2.1. Associativity
 
 In $\mathcal{C}_\mathbb{G}$, consider this diagram:
 
@@ -589,13 +595,15 @@ $$
 xyz = (x \cdot y) \cdot z
 $$
 
-Analogously, the second composition is:
+Analogously, bottom left composition is:
 
 $$
 xyz = x \cdot (y \cdot z)
 $$
 
-Then, by the associativity axiom $\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, this proves $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$.
+Then, by the associativity axiom $\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, this proves $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$, i.e., the diagram commutes.
+
+#### 6.2.2. Identity Element
 
 Existence of the neutral element is guaranteed by:
 
@@ -610,6 +618,8 @@ Existence of the neutral element is guaranteed by:
 
 \end{document}
 ```
+
+#### 6.2.3. Inverse Element
 
 Let $a := \langle \mathrm{id}_G, \theta_{-1} \rangle$ and $b := \langle \theta_{-1}, \mathrm{id}_G \rangle.$
 
@@ -692,6 +702,8 @@ and hence, by the other inverse axiom $\top \vdash_{\emptyset} x^{-1} \cdot x = 
 
 These equations express the two inverse laws: multiplying any group element by its inverse, in either order, yields the identity element.
 
+#### 6.2.4. Conclusion
+
 This proves all the group axioms for the object $\{x : G \cdot \top\}$ equipped with multiplication $\theta_{\cdot}$, unit $\theta_e$ and inverse $\theta_{-1}$; hence $(\{x : G \cdot \top\}, \theta_{\cdot})$ is indeed a group.
 
 > **Note:** The commutativity of the last diagrams is what guarantees that $(\{x : G \cdot \top\}, \theta_{\cdot})$ is a group in $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$, and this commutativity follows directly from the axioms of $\mathbb{T}_{\mathsf{Grp}}$. If you have some background in category theory, you may know that functors preserve commutative diagrams, so the group structure can be transported to other categories via functors from $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$. We will dive into this fact next.
@@ -742,7 +754,7 @@ $$
 
 given by the formula $\theta_{-1}$.
 
-Now $\mathcal{M}$ is a **Σ-structure**; as we have seen before, it also satisfies all axioms of $\mathbb{T}_{Grp}$, so $\mathcal{M}$ is a model for $\mathbb{T}_{Grp}$.
+Now $\mathcal{M}$ is a **Σ-structure**; as we have seen before, it also satisfies all axioms of $\mathbb{T}_{Grp}$, so $\mathcal{M}$ is a <a href="https://ncatlab.org/nlab/show/model" class="text-accent font-bold" target="_blank" rel="noopener noreferrer">model</a> for $\mathbb{T}_{Grp}$.
 
 ## 8. Cartesian Functors
 
@@ -751,10 +763,10 @@ Now $\mathcal{M}$ is a **Σ-structure**; as we have seen before, it also satisfi
 Let $\mathcal{C}$ and $\mathcal{D}$ be cartesian categories. A functor $F:\mathcal{C}\to\mathcal{D}$ is called **cartesian** if it preserves finite products, i.e.,
 
 $$
-F(A\times B) \cong F(A)\times F(B)
+F(A\times_{C} B) \cong F(A)\times_{D} F(B)
 $$
 
-for all $A,B\in\mathcal{C}$.
+for all $A,B\in\mathcal{C}$ where $\cong$ denotes isomorphism.
 
 Informally, one often writes this as
 
@@ -764,7 +776,7 @@ $$
 
 ### 8.2. Functors Define Groups
 
-Now consider a functor $F: \mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}} \to \mathbf{Set}$; this functor sends $\{x : G \cdot \top\}$ to a specific set $G$, and $\theta _{e}$, $\theta _{\cdot}$ and $\theta _{-1}$ to morphisms in $\mathbf{Set}$. The incredible fact is that these morphisms in $\mathbf{Set}$ together with $G$ form a group, because every axiom of $\mathbb{T}_{Grp}$ was codified in $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$ as a commutative diagram, and it is a basic result of category theory that every commutative diagram is indeed a commutative diagram in the image of a functor.
+Now consider a cartesian functor $F: \mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}} \to \mathbf{Set}$ this functor is possible because $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$ is cartesian and $\mathbf{Set}$ is complete, in particular cartesian; this functor sends $\{x : G \cdot \top\}$ to a specific set $G$, and $\theta _{e}$, $\theta _{\cdot}$ and $\theta _{-1}$ to morphisms in $\mathbf{Set}$. The incredible fact is that these morphisms in $\mathbf{Set}$ together with $G$ form a group, because every axiom of $\mathbb{T}_{Grp}$ was codified in $\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}$ as a commutative diagram, and it is a basic result of category theory that every commutative diagram is indeed a commutative diagram in the image of a functor.
 
 ### 8.3. Example: the Group of Integers
 
@@ -779,8 +791,6 @@ It is defined on the generic object $\{x \cdot \top\}$ by
 $$
 F_{\mathbb Z}(G)=\mathbb Z,
 $$
-
-and, since it is cartesian, it preserves finite products:
 
 $$
 F_{\mathbb Z}(G^n)=\mathbb Z^n,
@@ -808,7 +818,7 @@ F_{\mathbb Z}(\theta_{-1}):\mathbb Z\to \mathbb Z,
 n\mapsto -n.
 $$
 
-As we have seen, this is a model for $\mathbb T_{\mathsf{Grp}}$; specifically, it is the group $\mathbb{Z}$.
+In general, for every group $H$ we can define a functor $F_H:\mathcal{C}_{\mathbb{T}_{\mathsf{Grp}}}\to \mathbf{Set}$ that defines it analogously.
 
 We have only talked about group theory because it is a very simple example, but this works not only for this theory: the axioms of every geometric theory will be codified as commutative diagrams in the corresponding syntactic category, and every cartesian functor from this category to another will be a model for the theory.
 
