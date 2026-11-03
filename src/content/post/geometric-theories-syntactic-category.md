@@ -1,5 +1,5 @@
 ---
-title: "The Syntactic Category and Categorical Semantics"
+title: "Syntactic Category - Categorical Semantics"
 description: "First-order signatures, geometric theories, the syntactic category, and how cartesian functors give models."
 publishDate: "31 October 2026"
 tags: ["Math", "Category Theory", "Logic"]
@@ -146,8 +146,8 @@ Following the definitions of geometric logic, we define the signature $\Sigma_{\
 
 **Function Symbols:**
 
-- A constant symbol: $e : \to G$ (the identity element).
-- A binary function symbol: $\cdot : G\times G \to G$ (the group multiplication).
+- A constant symbol: $e : G^{0} \to G$ (the identity element).
+- A binary function symbol: $\cdot : G^{2} \to G$ (the group multiplication).
 - A unary function symbol: $(-)^{-1} : G \to G$ (the inverse operation).
 
 **Relation Symbols:**
@@ -163,27 +163,27 @@ The theory of groups is axiomatized by the following geometric sequents, all in 
 **1. Associativity:**
 
 $$
-\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)
+\top \vdash_{x,y,z} (x \cdot y) \cdot z = x \cdot (y \cdot z)
 $$
 
 **2. Identity element:**
 
 $$
-\top \vdash_{\emptyset} x \cdot e = x
+\top \vdash_{x} x \cdot e = x
 $$
 
 $$
-\top \vdash_{\emptyset} e \cdot x = x
+\top \vdash_{x} e \cdot x = x
 $$
 
 **3. Inverse element:**
 
 $$
-\top \vdash_{\emptyset} x \cdot x^{-1} = e
+\top \vdash_{x} x \cdot x^{-1} = e
 $$
 
 $$
-\top \vdash_{\emptyset} x^{-1} \cdot x = e
+\top \vdash_{x} x^{-1} \cdot x = e
 $$
 
 Each of these sequents is of the form $\phi \vdash_{\vec{x}} \psi$ where $\phi = \top$ and $\psi$ is an atomic equality formula, $\phi = \top$ in all these sequents again by the universal character of the axioms.
@@ -267,7 +267,7 @@ This supposition is not a problem because an object $\{\vec{x} \cdot \phi\}$ is 
 
 ### 3.5. Isomorphisms
 
-An isomorphism in a category $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, reflecting the above totality and well-definedness sequents, a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ can be interpreted as a proof that $\phi$ implies $\psi$; so an isomorphism is a proof of the equivalence between two formulas. In fact, two objects of the syntactic category are isomorphic if and only if they are equivalent formulas with contexts of the same type and length.
+An isomorphism in a category $\mathcal{C}$ is a morphism $f: A \to B$ such that there exists a morphism $g: B \to A$ such that $f\circ g = I_{B}$ and $g \circ f = I_{A}$. In the syntactic category, using the above totality and well-definedness sequents, existence of a morphism $\{\vec{x} \cdot \phi\} \longrightarrow \{\vec{y} \cdot \psi\}$ implies that $\phi \vdash_{\vec{x}} (\exists \vec{y}) \, \psi$ ; so existence of an isomorphism implies that $\phi \vdash_{\vec{x}} (\exists \vec{y}) \, \psi$ and $\psi \vdash_{\vec{y}} (\exists \vec{x}) \, \phi$ .
 
 ## 4. Products
 
