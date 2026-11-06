@@ -355,10 +355,10 @@ $$
 given by the equivalence class of the formula:
 
 $$
-\theta(\vec{x}) := \top
+\theta(\vec{x}) := \phi(\vec{x})
 $$
 
-which is trivially provably functional.
+which is provably functional because the well-definedness sequent $\phi \vdash_{\vec{x}} \phi \land \top$ holds, and the totality and single valuedness sequents follow because $\vec{y}$ is empty in this case; these are $\phi \vdash_{\vec{x}} (\exists \emptyset)\,\phi$ (totality) and $\phi(\vec{x}) \land \phi(\vec{x}) \vdash_{\vec{x}} \top$ (single valuedness), which are also true.
 
 #### 4.3.2. Binary Product
 
