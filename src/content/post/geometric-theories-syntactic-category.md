@@ -569,7 +569,7 @@ In $\mathcal{C}_\mathbb{G}$, consider this diagram:
 \end{document}
 ```
 
-Commutativity means: $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$; let's break down these morphisms.
+Commutativity means: $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = \theta_{\cdot} \circ (id_{\{ x \cdot \top \}} \times \theta_{\cdot})$; let's break down these morphisms.
 
 Top morphism:
 
@@ -618,6 +618,79 @@ Existence of the neutral element is guaranteed by:
 
 \end{document}
 ```
+
+The neutral element laws are expressed by the commutativity of the following diagram:
+
+```tikz
+\usepackage{tikz-cd}
+
+\begin{document}
+
+\begin{tikzcd}[column sep=huge, row sep=large]
+\{x : G \cdot \top\} \arrow[r, "a"] \arrow[rd, "\mathrm{id}_G"'] &
+\{x_l, x_r : G \cdot \top\} \arrow[d, "m"] &
+\{x : G \cdot \top\} \arrow[l, "b"'] \arrow[ld, "\mathrm{id}_G"] \\
+& \{x' : G \cdot \top\} &
+\end{tikzcd}
+
+\end{document}
+```
+
+where $a := \langle \mathrm{id}_G, \theta_e \circ !_{\{x \cdot \top\}} \rangle$ and $b := \langle \theta_e \circ !_{\{x \cdot \top\}}, \mathrm{id}_G \rangle$, with $!_{\{x \cdot \top\}} : \{x \cdot \top\} \longrightarrow 1$ the unique morphism to the terminal object.
+
+Let us break down these morphisms. The left morphism is given by:
+
+$$
+a := (x_l = x) \land (x_r = e)
+$$
+
+the right morphism by:
+
+$$
+b := (x_l = e) \land (x_r = x)
+$$
+
+and the multiplication by:
+
+$$
+m := (x' = x_l \cdot x_r)
+$$
+
+Composition $m \circ a$:
+
+$$
+(\exists x_l, x_r)\big( (x_l = x) \land (x_r = e) \land (x' = x_l \cdot x_r) \big)
+$$
+
+This formula is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to:
+
+$$
+x' = x \cdot e
+$$
+
+and, by the neutral element axiom $\top \vdash_{\emptyset} x \cdot e = x$, to:
+
+$$
+x' = x
+$$
+
+Equivalently, this is $\top \land x = x'$, which is precisely the formula defining the identity morphism on $\{x : G \cdot \top\}$ Hence $m \circ a = \mathrm{id}_G$.
+
+Analogously, the composition $m \circ b$ is:
+
+$$
+(\exists x_l, x_r)\big( (x_l = e) \land (x_r = x) \land (x' = x_l \cdot x_r) \big)
+$$
+
+which is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to:
+
+$$
+x' = e \cdot x
+$$
+
+and hence, by the other neutral element axiom $\top \vdash_{\emptyset} e \cdot x = x$, to $x' = x$, equivalently $\top \land x = x'$. Therefore $m \circ b = \mathrm{id}_G$.
+
+Then the diagram comutes and these equations express the two neutral element laws: multiplying any group element by the identity, in either order, leaves it unchanged.
 
 #### 6.2.3. Inverse Element
 
