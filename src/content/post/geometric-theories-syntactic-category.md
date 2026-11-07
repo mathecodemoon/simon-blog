@@ -601,7 +601,7 @@ $$
 xyz = x \cdot (y \cdot z)
 $$
 
-Then, by the associativity axiom $\top \vdash_{\emptyset} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, this proves $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$, i.e., the diagram commutes.
+Then, by the associativity axiom $\top \vdash_{x,y,z} (x \cdot y) \cdot z = x \cdot (y \cdot z)$, this proves $\theta_{\cdot} \circ (\theta_{\cdot} \times id_{\{ z \cdot \top \}}) = (id_{\{ x \cdot \top \}} \times \theta_{\cdot}) \circ \theta_{\cdot}$, i.e., the diagram commutes.
 
 #### 6.2.2. Identity Element
 
@@ -638,16 +638,20 @@ The neutral element laws are expressed by the commutativity of the following dia
 
 where $a := \langle \mathrm{id}_G, \theta_e \circ !_{\{x \cdot \top\}} \rangle$ and $b := \langle \theta_e \circ !_{\{x \cdot \top\}}, \mathrm{id}_G \rangle$, with $!_{\{x \cdot \top\}} : \{x \cdot \top\} \longrightarrow 1$ the unique morphism to the terminal object.
 
-Let us break down these morphisms. The left morphism is given by:
+Here the morphism $!_{\{x \cdot \top\}} : \{x : G \cdot \top\} \longrightarrow 1$ is given by $\top$, while $\theta_e : \{\emptyset \cdot \top\} \longrightarrow \{x_r : G \cdot \top\}$ is given by $(x_r = e)$. Since the intermediate object is the terminal object $1 = \{\emptyset \cdot \top\}$, whose context is empty, their composition is
+$$
+\theta_e \circ !_{\{x \cdot \top\}}(x, x_r) := (\exists \emptyset)\big(\top \land (x_r = e)\big),
+$$
+which is $\mathbb{T}_{\mathsf{Grp}}$-provably equivalent to $(x_r = e)$. Therefore the left morphism is given by
 
 $$
-a := (x_l = x) \land (x_r = e)
+a := (x_l = x) \land (\exists \emptyset)\big(\top \land (x_r = e)\big) \equiv (x_l = x) \land (x_r = e),
 $$
 
-the right morphism by:
+the right morphism by
 
 $$
-b := (x_l = e) \land (x_r = x)
+b := (\exists \emptyset)\big(\top \land (x_l = e)\big) \land (x_r = x) \equiv (x_l = e) \land (x_r = x),
 $$
 
 and the multiplication by:
@@ -668,7 +672,7 @@ $$
 x' = x \cdot e
 $$
 
-and, by the neutral element axiom $\top \vdash_{\emptyset} x \cdot e = x$, to:
+and, by the neutral element axiom $\top \vdash_{x} x \cdot e = x$, to:
 
 $$
 x' = x
@@ -688,7 +692,7 @@ $$
 x' = e \cdot x
 $$
 
-and hence, by the other neutral element axiom $\top \vdash_{\emptyset} e \cdot x = x$, to $x' = x$, equivalently $\top \land x = x'$. Therefore $m \circ b = \mathrm{id}_G$.
+and hence, by the other neutral element axiom $\top \vdash_{x} e \cdot x = x$, to $x' = x$, equivalently $\top \land x = x'$. Therefore $m \circ b = \mathrm{id}_G$.
 
 Then the diagram comutes and these equations express the two neutral element laws: multiplying any group element by the identity, in either order, leaves it unchanged.
 
@@ -696,11 +700,7 @@ Then the diagram comutes and these equations express the two neutral element law
 
 Let $a := \langle \mathrm{id}_G, \theta_{-1} \rangle$ and $b := \langle \theta_{-1}, \mathrm{id}_G \rangle.$
 
-Intuitively, $a$ takes an element $x \in G$ and sends it to the pair $(x, x^{-1})$, while $b$ takes $x \in G$ and sends it to the pair $(x^{-1}, x)$. In other words,
-
-$$
-a(x) = (x, x^{-1}), \qquad b(x) = (x^{-1}, x).
-$$
+Intuitively, $a$ takes an element $x \in G$ and sends it to the pair $(x, x^{-1})$, while $b$ takes $x \in G$ and sends it to the pair $(x^{-1}, x)$.
 
 The invertibility property is expressed by the commutativity of the following diagram:
 
@@ -710,16 +710,16 @@ The invertibility property is expressed by the commutativity of the following di
 \begin{document}
 
 \begin{tikzcd}[column sep=huge, row sep=large]
-\{x : G \cdot \top\} \arrow[r, "a"] \arrow[rd, "\theta_e"'] &
+\{x : G \cdot \top\} \arrow[r, "a"] \arrow[rd, "\theta_e \circ !_{\{x \cdot \top\}}"'] &
 \{x_l, x_r : G \cdot \top\} \arrow[d, "m"] &
-\{x : G \cdot \top\} \arrow[l, "b"'] \arrow[ld, "\theta_e"] \\
+\{x : G \cdot \top\} \arrow[l, "b"'] \arrow[ld, "\theta_e \circ !_{\{x \cdot \top\}}"] \\
 & \{x' : G \cdot \top\} &
 \end{tikzcd}
 
 \end{document}
 ```
 
-That is, $m \circ a = \theta_e$ and $m \circ b = \theta_e$ hold.
+That is, $m \circ a = \theta_e \circ !_{\{x \cdot \top\}}$ and $m \circ b = \theta_e \circ !_{\{x \cdot \top\}}$ hold, where $!_{\{x \cdot \top\}} : \{x : G \cdot \top\} \longrightarrow \{\emptyset \cdot \top\}$ is the unique morphism to the terminal object.
 
 Let us verify the first equation; the second is analogous. The morphism $a$ is given by
 
@@ -745,13 +745,16 @@ $$
 x' = x \cdot x^{-1},
 $$
 
-and, by the inverse axiom $\top \vdash_{\emptyset} x \cdot x^{-1} = e$, to
+and, by the inverse axiom $\top \vdash_{x} x \cdot x^{-1} = e$, to
 
 $$
 x' = e.
 $$
 
-But $x' = e$ is precisely the formula defining the constant morphism $\theta_e$. Hence $m \circ a = \theta_e$.
+$$
+\theta_e \circ !_{\{x \cdot \top\}}(x, x') := (\exists \emptyset)\big(\top \land (x' = e)\big) \equiv (x' = e).
+$$
+Hence $m \circ a = \theta_e \circ !_{\{x \cdot \top\}}$.
 
 Analogously, $b$ is given by
 
@@ -771,7 +774,7 @@ $$
 x' = x^{-1} \cdot x,
 $$
 
-and hence, by the other inverse axiom $\top \vdash_{\emptyset} x^{-1} \cdot x = e$, to $x' = e$. Therefore $m \circ b = \theta_e$.
+and hence, by the other inverse axiom $\top \vdash_{x} x^{-1} \cdot x = e$, to $x' = e$. Therefore $m \circ b = \theta_e \circ !_{\{x \cdot \top\}}$.
 
 These equations express the two inverse laws: multiplying any group element by its inverse, in either order, yields the identity element.
 
